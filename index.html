@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pegadaian Innovation Center — Platform inovasi digital untuk mendorong budaya kolaborasi dan solusi yang berdampak." />
+  <title>Pegadaian Innovation Center</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/pages.css" />
+  <link rel="stylesheet" href="styles/phase2.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+       ═══════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" style="display: none;">
+    <div class="navbar__inner">
+      <a href="#landing" class="navbar__brand">
+        <svg class="navbar__logo-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/>
+        </svg>
+        <span class="navbar__logo-text">Innovation Center</span>
+      </a>
+
+      <div class="navbar__nav" id="navMenu">
+        <a href="#landing" class="navbar__link active">Beranda</a>
+        <a href="#innovations" class="navbar__link">Inovasi</a>
+        <a href="#repository" class="navbar__link">Repository</a>
+        <a href="#about" class="navbar__link">Tentang</a>
+      </div>
+
+      <div class="navbar__actions">
+        <button class="navbar__icon-btn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </button>
+        <div class="navbar__avatar" title="User" style="cursor:pointer" onclick="location.hash='#admin'">U</div>
+        <button class="navbar__hamburger" id="navHamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════
+       AURUM AI SIDEBAR (Global overlay)
+       ═══════════════════════════════════════ -->
+  <div class="aurum-overlay" id="aurumOverlay"></div>
+  <aside class="aurum-sidebar" id="aurumSidebar">
+    <div class="aurum__header">
+      <div class="aurum__brand">
+        <span class="aurum__brand-name">✨ AURUM AI</span>
+        <span class="aurum__brand-sub">Powered by Gemini</span>
+      </div>
+      <button class="aurum__close" id="aurumClose">✕</button>
+    </div>
+    <div class="aurum__context">
+      <div class="aurum__context-name" id="aurumInnovName">—</div>
+      <div class="aurum__context-meta" id="aurumInnovMeta">—</div>
+    </div>
+    <div class="aurum__chat" id="aurumChat"></div>
+    <div class="aurum__categories">
+      <div class="aurum__categories-label">Category Analysis</div>
+      <div class="aurum__chips" id="aurumCategoryChips"></div>
+    </div>
+    <div class="aurum__input-area">
+      <input class="aurum__input" id="aurumInput" type="text" placeholder="Tanya Aurum..." />
+      <button class="aurum__send" id="aurumSend">➤</button>
+    </div>
+  </aside>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 1: LOGIN
+       ═══════════════════════════════════════ -->
+  <div class="page" id="loginPage">
+    <section class="login-page">
+      <div class="login-page__glow"></div>
+      <div class="login-page__brand">
+        <svg class="login-page__logo-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/>
+        </svg>
+        <div class="login-page__logo-text">Innovation Center</div>
+      </div>
+      <div class="glass-card login-page__card" style="cursor: default;">
+        <h1 class="login-page__title">Selamat Datang</h1>
+        <p class="login-page__subtitle">Gunakan Email Corporate untuk melanjutkan</p>
+        <div class="login-page__buttons">
+          <button class="btn btn--google" id="btnGoogle">
+            <svg width="18" height="18" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            Sign in with Google
+          </button>
+          <button class="btn btn--sso" id="btnSSO">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            SSO PT Pegadaian
+          </button>
+        </div>
+        <p class="login-page__terms">
+          Dengan masuk, Anda menyetujui <a href="#">Syarat &amp; Ketentuan</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 2: LANDING
+       ═══════════════════════════════════════ -->
+  <div class="page" id="landingPage">
+
+    <!-- Hero -->
+    <section class="hero" id="heroSection">
+      <div class="hero__orbs">
+        <div class="hero__orb hero__orb--teal"></div>
+        <div class="hero__orb hero__orb--gold"></div>
+        <div class="hero__orb hero__orb--teal2"></div>
+      </div>
+      <div class="container hero__content">
+        <h1 class="hero__title reveal">
+          Amplifying Trust,<br />
+          <span class="hero__title-accent">Accelerating Innovation</span>
+        </h1>
+        <p class="hero__subtitle reveal">
+          Platform inovasi digital Pegadaian untuk mendorong budaya kolaborasi dan solusi yang berdampak.
+        </p>
+        <div class="hero__actions reveal">
+          <button class="btn btn--primary" onclick="document.getElementById('whatWeDoSection').scrollIntoView({behavior:'smooth'})">Mulai Berinovasi</button>
+          <button class="btn btn--secondary" onclick="document.getElementById('impactSection').scrollIntoView({behavior:'smooth'})">Pelajari Lebih Lanjut →</button>
+        </div>
+      </div>
+      <div class="hero__scroll-indicator">
+        <span>Scroll</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </section>
+
+    <!-- What We Do -->
+    <section class="what-we-do" id="whatWeDoSection">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2 class="section-title__heading">What We Do</h2>
+          <span class="section-title__accent"></span>
+        </div>
+        <div class="what-we-do__grid" id="whatWeDoGrid"></div>
+        <p class="what-we-do__closing reveal">Kami mendorong inovasi yang <em>berdampak</em></p>
+      </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="impact" id="impactSection">
+      <div class="impact__glow"></div>
+      <div class="container">
+        <h2 class="impact__title reveal">Driven By <span class="impact__title-accent">Innovation</span>,<br />Powered By People</h2>
+        <p class="impact__subtitle reveal">Lihat bagaimana inovasi internal telah membawa perubahan nyata.</p>
+        <button class="btn btn--primary reveal" onclick="location.hash='#innovations'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Inovasi Kami
+        </button>
+        <div class="impact__divider"></div>
+      </div>
+    </section>
+
+    <!-- Meet the Innovator -->
+    <section class="innovators" id="innovatorsSection">
+      <div class="container">
+        <div class="carousel">
+          <div class="carousel__header">
+            <h2 class="carousel__title reveal">Meet the Innovator</h2>
+            <div class="carousel__controls">
+              <button class="carousel__btn" id="carouselPrev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="carousel__btn" id="carouselNext" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+          <div class="carousel__track" id="carouselTrack"></div>
+          <div class="carousel__dots" id="carouselDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section" id="timelineSection">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2 class="section-title__heading">Timeline Inovasi</h2>
+          <span class="section-title__accent"></span>
+        </div>
+        <div class="timeline" id="timelineContainer"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faqSection">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2 class="section-title__heading">Frequently Asked Questions</h2>
+          <span class="section-title__accent"></span>
+        </div>
+        <div class="accordion" id="faqAccordion"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <a href="#landing" class="footer__brand">
+            <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/></svg>
+            <span class="footer__logo-text">Innovation Center</span>
+          </a>
+          <div class="footer__links">
+            <a href="#landing" class="footer__link">Beranda</a>
+            <a href="#innovations" class="footer__link">Inovasi</a>
+            <a href="#repository" class="footer__link">Repository</a>
+            <a href="#about" class="footer__link">Tentang</a>
+          </div>
+        </div>
+        <p class="footer__copy">&copy; 2025 PT Pegadaian. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 3: INNOVATIONS (Apple-style scroll)
+       ═══════════════════════════════════════ -->
+  <div class="page" id="innovationsPage">
+    <div class="innov-scroll">
+
+      <!-- Hero -->
+      <div class="innov-scroll__hero">
+        <div class="container" style="text-align:center;">
+          <h1 class="innov-scroll__hero-title reveal">Inovasi <span>Yang Telah Kami Wujudkan</span></h1>
+          <p class="innov-scroll__hero-sub reveal">Solusi nyata yang lahir dari program inovasi internal Pegadaian.</p>
+        </div>
+      </div>
+
+      <!-- Sticky scroll layout -->
+      <div class="innov-scroll__layout">
+        <div class="innov-scroll__left">
+          <div id="innovationsText"></div>
+        </div>
+        <div class="innov-scroll__right" id="innovationsTrack"></div>
+      </div>
+
+      <!-- Progress dots -->
+      <div class="innov-scroll__progress" id="innovationsDots"></div>
+
+      <!-- CTA -->
+      <div style="text-align:center; padding: 80px 24px;">
+        <p style="font-size:16px; color:var(--text-secondary); margin-bottom:24px;">Ingin melihat lebih banyak?</p>
+        <a href="#repository" class="btn btn--primary">Jelajahi Repository →</a>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <a href="#landing" class="footer__brand">
+            <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/></svg>
+            <span class="footer__logo-text">Innovation Center</span>
+          </a>
+          <div class="footer__links">
+            <a href="#landing" class="footer__link">Beranda</a>
+            <a href="#repository" class="footer__link">Repository</a>
+            <a href="#about" class="footer__link">Tentang</a>
+          </div>
+        </div>
+        <p class="footer__copy">&copy; 2025 PT Pegadaian. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 4: REPOSITORY + AURUM AI
+       ═══════════════════════════════════════ -->
+  <div class="page" id="repositoryPage">
+    <section class="repo">
+      <div class="container">
+        <div class="repo__header reveal">
+          <h1 class="repo__title">Innovation Repository</h1>
+          <p class="repo__subtitle">Jelajahi seluruh inovasi Pegadaian dari berbagai season</p>
+        </div>
+
+        <div class="repo__filters">
+          <input class="repo__search" id="repoSearch" type="text" placeholder="Cari inovasi, kategori, atau nama tim..." />
+        </div>
+
+        <div class="repo__tier-tabs" id="repoTierTabs"></div>
+
+        <div class="repo__grid" id="repoGrid"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <a href="#landing" class="footer__brand">
+            <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/></svg>
+            <span class="footer__logo-text">Innovation Center</span>
+          </a>
+          <div class="footer__links">
+            <a href="#landing" class="footer__link">Beranda</a>
+            <a href="#innovations" class="footer__link">Inovasi</a>
+            <a href="#about" class="footer__link">Tentang</a>
+          </div>
+        </div>
+        <p class="footer__copy">&copy; 2025 PT Pegadaian. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 5: ABOUT US
+       ═══════════════════════════════════════ -->
+  <div class="page" id="aboutPage">
+    <div class="about">
+
+      <!-- Hero -->
+      <section class="about__hero">
+        <div class="about__hero-glow"></div>
+        <div>
+          <h1 class="about__hero-title reveal">Tentang Innovation Center</h1>
+          <p class="about__hero-sub reveal">Divisi yang berkomitmen membangun budaya inovasi berkelanjutan di seluruh ekosistem Pegadaian.</p>
+          <div class="section-title__accent" style="margin:0 auto;"></div>
+        </div>
+      </section>
+
+      <!-- Visi & Misi -->
+      <section class="about__section">
+        <div class="container">
+          <div class="section-title reveal">
+            <h2 class="section-title__heading">Visi & Misi</h2>
+            <span class="section-title__accent"></span>
+          </div>
+          <div class="about__vm-grid">
+            <div class="glass-card about__vm-card reveal" style="cursor:default;">
+              <div class="about__vm-icon">🔭</div>
+              <h3 class="about__vm-title">Visi</h3>
+              <p class="about__vm-text gold">"Menjadi pusat inovasi terdepan di industri jasa keuangan Indonesia, mengakselerasi transformasi digital yang berdampak nyata."</p>
+            </div>
+            <div class="glass-card about__vm-card reveal" style="cursor:default;">
+              <div class="about__vm-icon">🚀</div>
+              <h3 class="about__vm-title">Misi</h3>
+              <ul class="about__vm-list">
+                <li>Memfasilitasi proses ideation dan design thinking di seluruh unit bisnis</li>
+                <li>Menyelenggarakan program inkubasi dan mentoring berkala</li>
+                <li>Mendorong kolaborasi lintas divisi untuk solusi inovatif</li>
+                <li>Mengimplementasikan inovasi dengan standar enterprise</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Peran Kami -->
+      <section class="about__section">
+        <div class="container">
+          <div class="section-title reveal">
+            <h2 class="section-title__heading">Peran Kami di Pegadaian</h2>
+            <span class="section-title__accent"></span>
+          </div>
+          <div class="about__roles-grid" id="aboutRolesGrid"></div>
+        </div>
+      </section>
+
+      <!-- Tim Kami -->
+      <section class="about__section">
+        <div class="container">
+          <div class="section-title reveal">
+            <h2 class="section-title__heading">Tim Kami</h2>
+            <span class="section-title__accent"></span>
+          </div>
+          <div class="about__team-grid" id="aboutTeamGrid"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <a href="#landing" class="footer__brand">
+            <svg class="footer__logo-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/></svg>
+            <span class="footer__logo-text">Innovation Center</span>
+          </a>
+          <div class="footer__links">
+            <a href="#landing" class="footer__link">Beranda</a>
+            <a href="#innovations" class="footer__link">Inovasi</a>
+            <a href="#repository" class="footer__link">Repository</a>
+          </div>
+        </div>
+        <p class="footer__copy">&copy; 2025 PT Pegadaian. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 6: ADMIN DASHBOARD
+       ═══════════════════════════════════════ -->
+  <div class="page" id="adminPage">
+    <div class="admin-layout">
+
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+          <svg class="admin-sidebar__brand-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.4L19.6 12 12 18.6 4.4 12 12 5.4z"/></svg>
+          <span class="admin-sidebar__brand-text">Innovation Center</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+          <a href="#" class="admin-sidebar__link active" data-panel="adminDashPanel">
+            <span class="admin-sidebar__link-icon">📊</span> Dashboard
+          </a>
+          <a href="#" class="admin-sidebar__link" data-panel="adminUsersPanel">
+            <span class="admin-sidebar__link-icon">👥</span> User Management
+          </a>
+          <a href="#" class="admin-sidebar__link" data-panel="adminInnovPanel">
+            <span class="admin-sidebar__link-icon">📝</span> CMS Inovasi
+          </a>
+          <a href="#" class="admin-sidebar__link" data-panel="adminLandingPanel">
+            <span class="admin-sidebar__link-icon">📄</span> CMS Landing
+          </a>
+          <a href="#" class="admin-sidebar__link" data-panel="adminSettingsPanel">
+            <span class="admin-sidebar__link-icon">⚙️</span> Pengaturan
+          </a>
+        </nav>
+        <div class="admin-sidebar__logout">
+          <button class="admin-sidebar__logout-btn" onclick="location.hash='#landing'">🚪 Logout</button>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <h2 class="admin-topbar__title">Admin Dashboard</h2>
+          <div class="admin-topbar__actions">
+            <div class="admin-topbar__user">
+              <span>Admin</span>
+              <div class="admin-topbar__avatar">A</div>
+            </div>
+          </div>
+        </header>
+
+        <div class="admin__content">
+
+          <!-- Dashboard Panel -->
+          <div class="admin__panel active" id="adminDashPanel">
+            <div class="admin__stats">
+              <div class="admin__stat-card">
+                <div class="admin__stat-label">Total Inovasi</div>
+                <div class="admin__stat-value admin__stat-value--teal">12</div>
+              </div>
+              <div class="admin__stat-card">
+                <div class="admin__stat-label">Total Users</div>
+                <div class="admin__stat-value admin__stat-value--gold">6</div>
+              </div>
+              <div class="admin__stat-card">
+                <div class="admin__stat-label">Diamond</div>
+                <div class="admin__stat-value" style="color:#B9F2FF">2</div>
+              </div>
+              <div class="admin__stat-card">
+                <div class="admin__stat-label">Active Season</div>
+                <div class="admin__stat-value admin__stat-value--green">S3</div>
+              </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size:14px;">Selamat datang di panel administrasi Innovation Center. Gunakan sidebar untuk mengelola data.</p>
+          </div>
+
+          <!-- Users Panel -->
+          <div class="admin__panel" id="adminUsersPanel">
+            <div class="admin__panel-header">
+              <h3 class="admin__panel-title">User Access Management</h3>
+              <button class="admin__btn-add">+ Tambah User</button>
+            </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersBody"></tbody>
+            </table>
+          </div>
+
+          <!-- CMS Inovasi Panel -->
+          <div class="admin__panel" id="adminInnovPanel">
+            <div class="admin__panel-header">
+              <h3 class="admin__panel-title">CMS Inovasi</h3>
+              <button class="admin__btn-add">+ Tambah Inovasi</button>
+            </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Tim</th>
+                  <th>Tier</th>
+                  <th>Season</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminInnovBody"></tbody>
+            </table>
+          </div>
+
+          <!-- CMS Landing Panel -->
+          <div class="admin__panel" id="adminLandingPanel">
+            <div class="admin__panel-header">
+              <h3 class="admin__panel-title">CMS Landing Page</h3>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="glass-card" style="padding:20px;cursor:default;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <strong>Hero Section</strong>
+                    <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Headline, subtitle, CTA buttons</p>
+                  </div>
+                  <button class="admin-table__action-btn">✏️</button>
+                </div>
+              </div>
+              <div class="glass-card" style="padding:20px;cursor:default;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <strong>FAQ Items</strong>
+                    <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">5 pertanyaan aktif</p>
+                  </div>
+                  <button class="admin-table__action-btn">✏️</button>
+                </div>
+              </div>
+              <div class="glass-card" style="padding:20px;cursor:default;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <strong>Timeline Events</strong>
+                    <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">4 event aktif</p>
+                  </div>
+                  <button class="admin-table__action-btn">✏️</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings Panel -->
+          <div class="admin__panel" id="adminSettingsPanel">
+            <div class="admin__panel-header">
+              <h3 class="admin__panel-title">Pengaturan</h3>
+            </div>
+            <div class="glass-card" style="padding:24px;cursor:default;">
+              <p style="color: var(--text-secondary); font-size:14px;">Halaman pengaturan akan segera hadir. Fitur yang direncanakan: Theme customization, API keys, Email notifications, dan Backup data.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/innovations.js"></script>
+  <script src="js/repository.js"></script>
+  <script src="js/aurum-ai.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
