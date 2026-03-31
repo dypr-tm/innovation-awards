@@ -110,22 +110,26 @@ DECLARE
   pwd_hash TEXT := crypt('password123', gen_salt('bf'));
 BEGIN
   -- Insert Superadmin
-  INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
-  VALUES (super_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'superadmin@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "superadmin", "full_name": "Wahyu Superadmin"}', now(), now())
-  ON CONFLICT (email) DO NOTHING;
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE email = 'superadmin@pegadaian.co.id') THEN
+    INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
+    VALUES (super_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'superadmin@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "superadmin", "full_name": "Wahyu Superadmin"}', now(), now());
+  END IF;
 
   -- Insert Admin
-  INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
-  VALUES (admin_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'admin@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "admin", "full_name": "Siti Admin CMS"}', now(), now())
-  ON CONFLICT (email) DO NOTHING;
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE email = 'admin@pegadaian.co.id') THEN
+    INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
+    VALUES (admin_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'admin@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "admin", "full_name": "Siti Admin CMS"}', now(), now());
+  END IF;
 
   -- Insert Peserta
-  INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
-  VALUES (peserta_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'peserta@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "peserta", "full_name": "Budi Inovator"}', now(), now())
-  ON CONFLICT (email) DO NOTHING;
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE email = 'peserta@pegadaian.co.id') THEN
+    INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
+    VALUES (peserta_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'peserta@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "peserta", "full_name": "Budi Inovator"}', now(), now());
+  END IF;
 
   -- Insert Penilai
-  INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
-  VALUES (penilai_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'penilai@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "penilai", "full_name": "Pak Juri Penilai"}', now(), now())
-  ON CONFLICT (email) DO NOTHING;
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE email = 'penilai@pegadaian.co.id') THEN
+    INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
+    VALUES (penilai_id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'penilai@pegadaian.co.id', pwd_hash, now(), '{"provider": "email", "providers": ["email"]}', '{"role": "penilai", "full_name": "Pak Juri Penilai"}', now(), now());
+  END IF;
 END $$;
