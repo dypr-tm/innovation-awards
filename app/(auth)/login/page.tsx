@@ -70,7 +70,7 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="superadmin@pegadaian.co.id" 
+              placeholder="Masukkan Email" 
               className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
             />
           </div>
@@ -81,7 +81,7 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="password123" 
+              placeholder="Masukkan kata sandi" 
               className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
             />
           </div>
