@@ -36,7 +36,7 @@ export default function RepositoryPage() {
         </div>
         
         <div className="text-center mt-12">
-          <button className="px-8 py-4 bg-white border border-gray-200 text-pegadaian-green font-semibold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
+          <button className="px-8 py-4 bg-white border border-gray-200 text-pegadaian-green font-semibold rounded-[6px] hover:bg-gray-50 transition-colors shadow-sm">
             Muat Lebih Banyak
           </button>
         </div>

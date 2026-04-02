@@ -79,17 +79,17 @@ export default function Navbar() {
           {!loading && !session ? (
             // Unauthenticated UI
             <div className="flex items-center gap-2 md:gap-4">
-              <a href="/login" className="px-4 py-2 md:px-6 md:py-2 text-sm font-semibold text-pegadaian-green border border-pegadaian-green rounded-xl hover:bg-green-50 transition-colors">
+              <a href="/login" className="px-4 py-2 md:px-6 md:py-2 text-sm font-semibold text-pegadaian-green border border-pegadaian-green rounded-[6px] hover:bg-green-50 transition-colors">
                 Login
               </a>
-              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 md:px-6 md:py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-xl hover:opacity-90 transition-all shadow-md hover:shadow-lg">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 md:px-6 md:py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all shadow-md hover:shadow-lg">
                 Kirim Inovasi
               </a>
             </div>
           ) : !loading && session ? (
             // Authenticated UI
             <div className="flex items-center gap-2 sm:gap-4 relative">
-              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-xl hover:opacity-90 transition-all shadow-sm">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all shadow-sm">
                 Kirim Inovasi
               </a>
               
@@ -102,7 +102,7 @@ export default function Navbar() {
                 <button 
                   onClick={() => setProfileOpen(!profileOpen)}
                   onBlur={() => setTimeout(() => setProfileOpen(false), 200)}
-                  className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-full sm:rounded-xl border border-transparent hover:border-gray-100 transition-all cursor-pointer"
+                  className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-full sm:rounded-[6px] border border-transparent hover:border-gray-100 transition-all cursor-pointer"
                 >
                   <MdAccountCircle size={28} className="text-gray-400" />
                   <span className="hidden w-16 sm:w-auto sm:block text-sm font-medium text-gray-700 max-w-[120px] truncate">
@@ -112,7 +112,7 @@ export default function Navbar() {
                 </button>
 
                 {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl pegadaian-shadow border border-gray-100 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-[12px] pegadaian-shadow border border-gray-100 py-2 z-50">
                     <div className="px-4 py-2 border-b border-gray-50 mb-1">
                       <p className="text-sm font-semibold text-gray-800 truncate">
                         {session.user.user_metadata?.full_name || 'My Profile'}
@@ -145,7 +145,7 @@ export default function Navbar() {
             </div>
           ) : (
             // Loading skeleton or empty state
-            <div className="w-32 h-10 bg-gray-100 animate-pulse rounded-xl"></div>
+            <div className="w-32 h-10 bg-gray-100 animate-pulse rounded-[6px]"></div>
           )}
         </div>
       </div>

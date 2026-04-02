@@ -18,7 +18,7 @@ export default function ContactPage() {
           
           {/* Informasi Kontak (Cards) */}
           <div className="w-full lg:w-1/3 space-y-6">
-            <div className="bg-white p-6 rounded-2xl pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shrink-0">
                 <MdLocationOn size={24} />
               </div>
@@ -28,7 +28,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center shrink-0">
                 <MdEmail size={24} />
               </div>
@@ -38,7 +38,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center shrink-0">
                 <MdMessage size={24} />
               </div>
@@ -51,7 +51,7 @@ export default function ContactPage() {
           </div>
 
           {/* Formulir Kontak */}
-          <div className="w-full lg:w-2/3 bg-white p-8 md:p-8 rounded-3xl pegadaian-shadow border border-gray-100">
+          <div className="w-full lg:w-2/3 bg-white p-8 md:p-8 rounded-[12px] pegadaian-shadow border border-gray-100">
             <h2 className="text-2xl font-bold text-pegadaian-green mb-8">Kirim Pesan Langsung</h2>
             
             <form className="space-y-6">
@@ -61,7 +61,7 @@ export default function ContactPage() {
                   <input 
                     type="text" 
                     placeholder="Masukkan nama Anda" 
-                    className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
+                    className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
                   />
                 </div>
                 <div>
@@ -69,7 +69,7 @@ export default function ContactPage() {
                   <input 
                     type="email" 
                     placeholder="nama@pegadaian.co.id" 
-                    className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
+                    className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
                   />
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function ContactPage() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Tujuan (Kategori)</label>
                 <div className="relative">
-                  <select className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none pr-10" defaultValue="">
+                  <select className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none pr-10" defaultValue="">
                     <option value="" disabled>Pilih Tujuan...</option>
                     <option value="ide">Punya Ide Inovasi</option>
                     <option value="pertanyaan">Pertanyaan Umum</option>
@@ -95,13 +95,13 @@ export default function ContactPage() {
                 <textarea 
                   rows={5} 
                   placeholder="Tuliskan pesan, pertanyaan, atau ide Anda di sini..." 
-                  className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 resize-none"
+                  className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 resize-none"
                 ></textarea>
               </div>
 
               <button 
                 type="button" 
-                className="w-full py-4 bg-pegadaian-green hover:opacity-90 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:scale-95"
+                className="w-full py-4 bg-pegadaian-green hover:opacity-90 text-white font-bold text-lg rounded-[6px] shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:scale-95"
               >
                 Kirim Pesan
               </button>

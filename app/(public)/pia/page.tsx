@@ -21,8 +21,8 @@ export default function PIAPage() {
         <div>
           <h2 className="text-3xl font-bold text-pegadaian-green mb-8">Kategori Penghargaan</h2>
           <div className="space-y-6">
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdElectricBolt size={32} />
               </div>
               <div>
@@ -31,8 +31,8 @@ export default function PIAPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-green-100 text-green-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdSecurity size={32} />
               </div>
               <div>
@@ -41,8 +41,8 @@ export default function PIAPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdSettings size={32} />
               </div>
               <div>
@@ -54,7 +54,7 @@ export default function PIAPage() {
         </div>
 
         {/* Timeline Pendaftaran */}
-        <div className="bg-pegadaian-green text-white rounded-3xl p-10 pegadaian-shadow relative">
+        <div className="bg-pegadaian-green text-white rounded-[12px] p-10 pegadaian-shadow relative">
           <h2 className="text-2xl font-bold mb-10 text-pegadaian-yellow">Timeline Kegiatan</h2>
           
           <div className="relative pl-8 border-l-2 border-white/20 space-y-10">
@@ -83,7 +83,7 @@ export default function PIAPage() {
             </div>
           </div>
 
-          <a href="/pia/submit" className="block w-full text-center mt-12 py-4 bg-pegadaian-yellow text-pegadaian-green font-bold rounded-xl hover:opacity-90 transition-colors shadow-lg">
+          <a href="/pia/submit" className="block w-full text-center mt-12 py-4 bg-pegadaian-yellow text-pegadaian-green font-bold rounded-[6px] hover:opacity-90 transition-colors shadow-lg">
             Daftar Sekarang
           </a>
         </div>

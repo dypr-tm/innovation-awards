@@ -19,7 +19,7 @@ export default function AboutPage() {
             {/* Playful Illustration Placeholder */}
             <div className="relative w-full aspect-square max-w-md mx-auto">
               <div className="absolute inset-0 bg-yellow-100 rounded-full scale-95 origin-center animate-pulse"></div>
-              <div className="absolute inset-4 bg-pegadaian-green rounded-3xl rotate-3 opacity-10"></div>
+              <div className="absolute inset-4 bg-pegadaian-green rounded-[12px] rotate-3 opacity-10"></div>
               <div className="absolute inset-0 flex items-center justify-center p-8">
                 <svg className="w-full h-full text-pegadaian-green" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 20C55.817 20 20 55.817 20 100C20 144.183 55.817 180 100 180C144.183 180 180 144.183 180 100C180 55.817 144.183 20 100 20ZM100 160C66.863 160 40 133.137 40 100C40 66.863 66.863 40 100 40C133.137 40 160 66.863 160 100C160 133.137 133.137 160 100 160Z" fill="currentColor"/>
@@ -34,7 +34,7 @@ export default function AboutPage() {
               Mewujudkan <br className="hidden md:block"/>
               <span className="text-pegadaian-yellow">Masa Depan Bersama</span>
             </h1>
-            <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-pegadaian-yellow mb-6 shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-yellow mb-6 shadow-sm">
               <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
                 <MdLightbulb className="text-pegadaian-yellow" size={24} />
                 Visi Kami
@@ -43,7 +43,7 @@ export default function AboutPage() {
                 "Menjadi motor penggerak transformasi digital dan inovasi berkelanjutan."
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-pegadaian-green shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-green shadow-sm">
               <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
                 <MdTrendingUp className="text-pegadaian-green" size={24} />
                 Misi Kami
@@ -57,7 +57,7 @@ export default function AboutPage() {
       </section>
 
       {/* Tim Kami Section */}
-      <section className="container mx-auto px-6 max-w-5xl bg-gray-50/50 py-16 rounded-3xl">
+      <section className="container mx-auto px-6 max-w-5xl bg-gray-50/50 py-16 rounded-[12px]">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-pegadaian-green mb-4 inline-flex items-center justify-center gap-4">
             <MdGroups className="text-pegadaian-yellow" size={40} />
