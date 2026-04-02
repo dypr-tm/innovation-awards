@@ -317,6 +317,9 @@
 
 .repo__card {
   padding: 24px;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
   transition: all var(--transition-base);
   position: relative;
   border-left: 3px solid transparent;
@@ -432,15 +435,16 @@
   bottom: 0;
   width: 420px;
   max-width: 90vw;
-  background: rgba(37, 37, 40, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
   z-index: 100;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.4s ease;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
 }
 
 .aurum-sidebar.open {
