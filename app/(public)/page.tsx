@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 
 export default function Home() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -101,7 +102,7 @@ export default function Home() {
               >
                 <span className="font-bold text-pegadaian-green pr-8">{faq.q}</span>
                 <span className={`text-pegadaian-yellow transform transition-transform duration-300 ${openFAQ === index ? 'rotate-180' : ''}`}>
-                  ▼
+                  <MdKeyboardArrowDown size={28} />
                 </span>
               </button>
               <AnimatePresence>

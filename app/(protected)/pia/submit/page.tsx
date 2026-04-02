@@ -1,3 +1,5 @@
+import { MdKeyboardArrowDown } from 'react-icons/md';
+
 export default function SubmitPIAPage() {
   return (
     <div className="pt-12 pb-24 bg-gray-50/50 min-h-screen">
@@ -24,13 +26,18 @@ export default function SubmitPIAPage() {
               </div>
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">Kategori Inovasi</label>
-                <select className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none">
-                  <option value="">Pilih Kategori</option>
-                  <option value="teknologi">Teknologi</option>
-                  <option value="layanan">Layanan & Produk</option>
-                  <option value="proses">Proses Bisnis</option>
-                  <option value="lainnya">Lainnya</option>
-                </select>
+                <div className="relative">
+                  <select className="w-full px-6 py-4 pr-12 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none">
+                    <option value="">Pilih Kategori</option>
+                    <option value="teknologi">Teknologi</option>
+                    <option value="layanan">Layanan & Produk</option>
+                    <option value="proses">Proses Bisnis</option>
+                    <option value="lainnya">Lainnya</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
+                    <MdKeyboardArrowDown size={24} />
+                  </div>
+                </div>
               </div>
             </div>
 

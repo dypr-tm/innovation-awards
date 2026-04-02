@@ -1,4 +1,4 @@
-import { MdLocationOn, MdEmail, MdMessage } from "react-icons/md";
+import { MdLocationOn, MdEmail, MdMessage, MdKeyboardArrowDown } from "react-icons/md";
 
 export default function ContactPage() {
   return (
@@ -77,15 +77,15 @@ export default function ContactPage() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Tujuan (Kategori)</label>
                 <div className="relative">
-                  <select className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none pr-10" defaultValue="">
+                  <select className="w-full px-6 py-4 pr-12 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800 appearance-none" defaultValue="">
                     <option value="" disabled>Pilih Tujuan...</option>
                     <option value="ide">Punya Ide Inovasi</option>
                     <option value="pertanyaan">Pertanyaan Umum</option>
                     <option value="kolaborasi">Potensi Kolaborasi</option>
                     <option value="lainnya">Lainnya</option>
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                    ▼
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
+                    <MdKeyboardArrowDown size={24} />
                   </div>
                 </div>
               </div>
