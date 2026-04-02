@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { Bell, UserCircle, LogOut, ChevronDown } from 'lucide-react';
+import { MdNotifications, MdAccountCircle, MdLogout, MdKeyboardArrowDown } from 'react-icons/md';
 import Image from 'next/image';
 
 export default function Navbar() {
@@ -68,47 +68,47 @@ export default function Navbar() {
           </div>
         </a>
         <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-          <a href="/" className="hover:text-pegadaian-navy transition-colors">Beranda</a>
-          <a href="/pia" className="hover:text-pegadaian-navy transition-colors">PIA</a>
-          <a href="/repository" className="hover:text-pegadaian-navy transition-colors">Repository</a>
-          <a href="/about" className="hover:text-pegadaian-navy transition-colors">Tentang Kami</a>
-          <a href="/contact" className="hover:text-pegadaian-navy transition-colors">Kontak</a>
+          <a href="/" className="hover:text-pegadaian-green transition-colors">Beranda</a>
+          <a href="/pia" className="hover:text-pegadaian-green transition-colors">PIA</a>
+          <a href="/repository" className="hover:text-pegadaian-green transition-colors">Repository</a>
+          <a href="/about" className="hover:text-pegadaian-green transition-colors">Tentang Kami</a>
+          <a href="/contact" className="hover:text-pegadaian-green transition-colors">Kontak</a>
         </nav>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
           {!loading && !session ? (
             // Unauthenticated UI
-            <>
-              <a href="/login" className="px-5 py-2.5 text-sm font-semibold text-pegadaian-navy border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors mr-1">
+            <div className="flex items-center gap-2 md:gap-4">
+              <a href="/login" className="px-4 py-2 md:px-6 md:py-2 text-sm font-semibold text-pegadaian-green border border-pegadaian-green rounded-xl hover:bg-green-50 transition-colors">
                 Login
               </a>
-              <a href="/pia/submit" className="px-5 py-2.5 text-sm font-semibold bg-pegadaian-navy text-white rounded-xl hover:bg-pegadaian-dark transition-all shadow-md hover:shadow-lg">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 md:px-6 md:py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-xl hover:opacity-90 transition-all shadow-md hover:shadow-lg">
                 Kirim Inovasi
               </a>
-            </>
+            </div>
           ) : !loading && session ? (
             // Authenticated UI
             <div className="flex items-center gap-2 sm:gap-4 relative">
-              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-navy text-white rounded-xl hover:bg-pegadaian-dark transition-all shadow-sm">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-xl hover:opacity-90 transition-all shadow-sm">
                 Kirim Inovasi
               </a>
               
-              <button className="p-2 text-gray-500 hover:text-pegadaian-navy hover:bg-gray-50 rounded-full transition-colors relative">
-                <Bell size={20} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+              <button className="p-2 text-gray-500 hover:text-pegadaian-green hover:bg-green-50 rounded-full transition-colors relative">
+                <MdNotifications size={24} />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-pegadaian-yellow rounded-full border border-white"></span>
               </button>
 
               <div className="relative">
                 <button 
                   onClick={() => setProfileOpen(!profileOpen)}
                   onBlur={() => setTimeout(() => setProfileOpen(false), 200)}
-                  className="flex items-center gap-2 p-1.5 hover:bg-gray-50 rounded-full sm:rounded-xl border border-transparent hover:border-gray-100 transition-all cursor-pointer"
+                  className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-full sm:rounded-xl border border-transparent hover:border-gray-100 transition-all cursor-pointer"
                 >
-                  <UserCircle size={28} className="text-gray-400" />
-                  <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-[120px] truncate">
+                  <MdAccountCircle size={28} className="text-gray-400" />
+                  <span className="hidden w-16 sm:w-auto sm:block text-sm font-medium text-gray-700 max-w-[120px] truncate">
                     {session.user.user_metadata?.full_name || 'Profile'}
                   </span>
-                  <ChevronDown size={16} className="text-gray-400 hidden sm:block" />
+                  <MdKeyboardArrowDown size={20} className="text-gray-400 hidden sm:block" />
                 </button>
 
                 {profileOpen && (
@@ -136,7 +136,7 @@ export default function Navbar() {
                       onMouseDown={(e) => { e.preventDefault(); handleSignOut(); }}
                       className="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors mt-1 border-t border-gray-50 pt-2"
                     >
-                      <LogOut size={16} />
+                      <MdLogout size={20} />
                       Keluar
                     </button>
                   </div>

@@ -52,7 +52,7 @@ export default function LoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center p-6 bg-gray-50/50">
       <div className="w-full max-w-md bg-white rounded-3xl pegadaian-shadow p-8 md:p-10 border border-gray-100">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-pegadaian-navy mb-2">Masuk Akun</h1>
+          <h1 className="text-3xl font-extrabold text-pegadaian-green mb-2">Masuk Akun</h1>
           <p className="text-gray-500">Gunakan akun MVP dummy atau profil Anda</p>
         </div>
 
@@ -71,7 +71,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Masukkan Email" 
-              className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
+              className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
             />
           </div>
           <div>
@@ -82,22 +82,22 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Masukkan kata sandi" 
-              className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
+              className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
             />
           </div>
 
           <div className="flex items-center justify-between pt-2">
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 text-pegadaian-gold border-gray-300 rounded focus:ring-pegadaian-gold" />
+              <input type="checkbox" className="w-4 h-4 text-pegadaian-yellow border-gray-300 rounded focus:ring-pegadaian-yellow" />
               <span className="text-sm text-gray-600 font-medium">Ingat Saya</span>
             </label>
-            <a href="#" className="text-sm font-semibold text-pegadaian-navy hover:text-pegadaian-gold transition-colors">Lupa sandi?</a>
+            <a href="#" className="text-sm font-semibold text-pegadaian-green hover:text-pegadaian-yellow transition-colors">Lupa sandi?</a>
           </div>
 
           <button 
             type="submit"
             disabled={loading}
-            className={`w-full py-4 mt-6 bg-pegadaian-navy hover:bg-pegadaian-dark text-white font-bold rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-1 active:scale-95'}`}
+            className={`w-full py-4 mt-6 bg-pegadaian-green hover:opacity-90 text-white font-bold rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-1 active:scale-95'}`}
           >
             {loading ? 'Memproses...' : 'Masuk dengan Email'}
           </button>

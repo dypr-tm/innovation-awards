@@ -14,7 +14,10 @@ const config: Config = {
         pegadaian: {
           gold: "#FFCC00",
           navy: "#002f6c",
-          dark: "#00224f"
+          dark: "#00224f",
+          green: "#00AB4E",
+          yellow: "#F8C51B",
+          mint: "#CDEBE2"
         }
       },
       borderRadius: {
