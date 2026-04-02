@@ -50,7 +50,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-6 bg-gray-50/50">
-      <div className="w-full max-w-md bg-white rounded-[12px] pegadaian-shadow p-8 md:p-10 border border-gray-100">
+      <div className="w-full max-w-md bg-white rounded-[12px] p-8 md:p-10 border border-gray-100">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-pegadaian-green mb-2">Masuk Akun</h1>
           <p className="text-gray-500">Gunakan akun MVP dummy atau profil Anda</p>

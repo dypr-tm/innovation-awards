@@ -18,7 +18,7 @@ export default function ContactPage() {
           
           {/* Informasi Kontak (Cards) */}
           <div className="w-full lg:w-1/3 space-y-6">
-            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shrink-0">
                 <MdLocationOn size={24} />
               </div>
@@ -28,7 +28,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center shrink-0">
                 <MdEmail size={24} />
               </div>
@@ -38,7 +38,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] pegadaian-shadow border border-gray-100 flex items-start gap-4">
+            <div className="bg-white p-6 rounded-[12px] border border-gray-100 flex items-start gap-4">
               <div className="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center shrink-0">
                 <MdMessage size={24} />
               </div>
@@ -51,7 +51,7 @@ export default function ContactPage() {
           </div>
 
           {/* Formulir Kontak */}
-          <div className="w-full lg:w-2/3 bg-white p-8 md:p-8 rounded-[12px] pegadaian-shadow border border-gray-100">
+          <div className="w-full lg:w-2/3 bg-white p-8 md:p-8 rounded-[12px] border border-gray-100">
             <h2 className="text-2xl font-bold text-pegadaian-green mb-8">Kirim Pesan Langsung</h2>
             
             <form className="space-y-6">
