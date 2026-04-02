@@ -20,7 +20,7 @@
   --glass-border: rgba(0, 0, 0, 0.05);
   --glass-border-hover: rgba(0, 171, 78, 0.15);
   --glass-blur: blur(20px) saturate(180%);
-  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --glass-shadow: none;
 
   /* ── Navbar Glass ── */
   --nav-bg: rgba(255, 255, 255, 0.8);

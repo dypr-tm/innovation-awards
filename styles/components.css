@@ -159,8 +159,6 @@
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
 /* ── Buttons ── */
@@ -189,8 +187,6 @@
 
 .btn--primary:hover {
   background: var(--btn-green-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0, 171, 78, 0.2);
 }
 
 .btn--secondary {
@@ -233,8 +229,6 @@
 
 .btn--google:hover {
   background: #f8f9fa;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .btn--sso {
@@ -250,8 +244,6 @@
 
 .btn--sso:hover {
   background: var(--btn-green-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 171, 78, 0.25);
 }
 
 /* ── Section Title ── */

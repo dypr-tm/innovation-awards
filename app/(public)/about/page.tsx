@@ -34,7 +34,7 @@ export default function AboutPage() {
               Mewujudkan <br className="hidden md:block"/>
               <span className="text-pegadaian-yellow">Masa Depan Bersama</span>
             </h1>
-            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-yellow mb-6 shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-yellow mb-6">
               <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
                 <MdLightbulb className="text-pegadaian-yellow" size={24} />
                 Visi Kami
@@ -43,7 +43,7 @@ export default function AboutPage() {
                 "Menjadi motor penggerak transformasi digital dan inovasi berkelanjutan."
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-green shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-green">
               <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
                 <MdTrendingUp className="text-pegadaian-green" size={24} />
                 Misi Kami
@@ -71,7 +71,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-8">
           {teamMembers.map((member, idx) => (
             <div key={idx} className="w-40 md:w-48 text-center group">
-              <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full bg-white pegadaian-shadow p-2 mb-4 group-hover:-translate-y-2 transition-transform duration-300">
+              <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full bg-white border border-gray-100 p-2 mb-4 group-hover:bg-gray-50 transition-all duration-300">
                 <img 
                   src={member.img} 
                   alt={member.name} 

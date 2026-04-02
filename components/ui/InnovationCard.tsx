@@ -3,13 +3,12 @@ import { motion } from 'framer-motion';
 
 export default function InnovationCard({ title = "Untitled", category = "Kategori", team = "Team", summary = "" }: any) {
   return (
-    <motion.div 
-      whileHover={{ y: -6, boxShadow: "0 15px 35px rgba(0,0,0,0.06)" }}
-      className="bg-white rounded-2xl overflow-hidden border border-gray-100 pegadaian-shadow transition-all cursor-pointer flex flex-col h-full group"
+    <div 
+      className="bg-white rounded-2xl overflow-hidden border border-gray-100 transition-all cursor-pointer flex flex-col h-full group"
     >
       <div className="p-2">
         <div className="h-40 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center relative overflow-hidden">
-           <div className="absolute top-4 left-4 bg-pegadaian-yellow text-pegadaian-green text-[11px] uppercase tracking-wider font-bold px-4 py-2 rounded-full shadow-sm z-10">
+           <div className="absolute top-4 left-4 bg-pegadaian-yellow text-pegadaian-green text-[11px] uppercase tracking-wider font-bold px-4 py-2 rounded-full z-10">
              {category}
            </div>
            {/* Placeholder Icon */}
@@ -33,6 +32,6 @@ export default function InnovationCard({ title = "Untitled", category = "Kategor
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

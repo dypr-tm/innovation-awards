@@ -5,7 +5,7 @@ export default function PIAPage() {
     <div className="pt-12 pb-24 bg-white">
       {/* Hero Section */}
       <section className="container mx-auto px-6 max-w-5xl text-center mb-20">
-        <div className="inline-block px-6 py-2 bg-yellow-50 text-pegadaian-green font-bold text-sm rounded-full mb-6 border border-yellow-200 shadow-sm">
+        <div className="inline-block px-6 py-2 bg-yellow-50 text-pegadaian-green font-bold text-sm rounded-full mb-6 border border-yellow-200">
           🏆 Penghargaan Bergengsi
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold text-pegadaian-green tracking-tight leading-tight mb-6">
@@ -21,7 +21,7 @@ export default function PIAPage() {
         <div>
           <h2 className="text-3xl font-bold text-pegadaian-green mb-8">Kategori Penghargaan</h2>
           <div className="space-y-6">
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 transition-all">
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdElectricBolt size={32} />
               </div>
@@ -31,7 +31,7 @@ export default function PIAPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 transition-all">
               <div className="w-14 h-14 bg-green-100 text-green-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdSecurity size={32} />
               </div>
@@ -41,7 +41,7 @@ export default function PIAPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-[12px] border border-gray-100 transition-all">
               <div className="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-[12px] flex items-center justify-center shrink-0">
                 <MdSettings size={32} />
               </div>
@@ -54,36 +54,36 @@ export default function PIAPage() {
         </div>
 
         {/* Timeline Pendaftaran */}
-        <div className="bg-pegadaian-green text-white rounded-[12px] p-10 pegadaian-shadow relative">
+        <div className="bg-pegadaian-green text-white rounded-[12px] p-10 relative">
           <h2 className="text-2xl font-bold mb-10 text-pegadaian-yellow">Timeline Kegiatan</h2>
           
           <div className="relative pl-8 border-l-2 border-white/20 space-y-10">
             <div className="relative">
-              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-pegadaian-yellow rounded-full border-4 border-pegadaian-green shadow-lg" />
+              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-pegadaian-yellow rounded-full border-4 border-pegadaian-green" />
               <h3 className="text-xl font-bold mb-1">1. Pendaftaran & Submit Ide</h3>
               <p className="text-gray-300 text-sm">1 Mei - 30 Juni 2026</p>
             </div>
 
             <div className="relative">
-              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green shadow-lg" />
+              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green" />
               <h3 className="text-xl font-bold mb-1">2. Seleksi Tahap Awal</h3>
               <p className="text-gray-300 text-sm">Juli 2026</p>
             </div>
 
             <div className="relative">
-              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green shadow-lg" />
+              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green" />
               <h3 className="text-xl font-bold mb-1">3. Inkubasi & Pitching</h3>
               <p className="text-gray-300 text-sm">Agustus - September 2026</p>
             </div>
 
             <div className="relative">
-              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green shadow-lg" />
+              <div className="absolute -left-[41px] top-1 w-5 h-5 bg-white rounded-full border-4 border-pegadaian-green" />
               <h3 className="text-xl font-bold mb-1">4. Malam Penganugerahan</h3>
               <p className="text-gray-300 text-sm">Bulan Inklusi Keuangan (Oktober 2026)</p>
             </div>
           </div>
 
-          <a href="/pia/submit" className="block w-full text-center mt-12 py-4 bg-pegadaian-yellow text-pegadaian-green font-bold rounded-[6px] hover:opacity-90 transition-colors shadow-lg">
+          <a href="/pia/submit" className="block w-full text-center mt-12 py-4 bg-pegadaian-yellow text-pegadaian-green font-bold rounded-[6px] hover:opacity-90 transition-colors">
             Daftar Sekarang
           </a>
         </div>

@@ -11,7 +11,7 @@ export default function SearchFilterBar({ onSearch }: { onSearch?: (val: string,
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded-[12px] pegadaian-shadow border border-gray-100 items-center">
+    <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded-[12px] border border-gray-100 items-center">
       <input 
         type="text" 
         placeholder="Cari inovasi (cth: Layanan Gadai Digital)..." 
@@ -34,7 +34,7 @@ export default function SearchFilterBar({ onSearch }: { onSearch?: (val: string,
       </div>
       <button 
         onClick={handleSearch}
-        className="w-full md:w-auto px-8 py-4 bg-pegadaian-green hover:opacity-90 text-white font-semibold rounded-[6px] shadow-md hover:shadow-xl transition-all duration-300 active:scale-95 whitespace-nowrap shrink-0"
+        className="w-full md:w-auto px-8 py-4 bg-pegadaian-green hover:opacity-90 text-white font-semibold rounded-[6px] transition-all duration-300 whitespace-nowrap shrink-0"
       >
         Cari Ide
       </button>

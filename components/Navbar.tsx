@@ -39,7 +39,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50 pegadaian-shadow">
+    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 group hover:opacity-90 transition-opacity">
           {/* Logo updated to point to the user's provided logo image */}
@@ -82,14 +82,14 @@ export default function Navbar() {
               <a href="/login" className="px-4 py-2 md:px-6 md:py-2 text-sm font-semibold text-pegadaian-green border border-pegadaian-green rounded-[6px] hover:bg-green-50 transition-colors">
                 Login
               </a>
-              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 md:px-6 md:py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all shadow-md hover:shadow-lg">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 md:px-6 md:py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all">
                 Kirim Inovasi
               </a>
             </div>
           ) : !loading && session ? (
             // Authenticated UI
             <div className="flex items-center gap-2 sm:gap-4 relative">
-              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all shadow-sm">
+              <a href="/pia/submit" className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold bg-pegadaian-green text-white rounded-[6px] hover:opacity-90 transition-all">
                 Kirim Inovasi
               </a>
               
@@ -112,7 +112,7 @@ export default function Navbar() {
                 </button>
 
                 {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-[12px] pegadaian-shadow border border-gray-100 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-[12px] border border-gray-100 py-2 z-50">
                     <div className="px-4 py-2 border-b border-gray-50 mb-1">
                       <p className="text-sm font-semibold text-gray-800 truncate">
                         {session.user.user_metadata?.full_name || 'My Profile'}

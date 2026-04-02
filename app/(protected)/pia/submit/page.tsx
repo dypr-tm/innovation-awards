@@ -13,7 +13,7 @@ export default function SubmitPIAPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-[12px] pegadaian-shadow p-8 md:p-12">
+        <div className="bg-white rounded-[12px] p-8 md:p-12 border border-gray-100">
           <form className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
@@ -68,7 +68,7 @@ export default function SubmitPIAPage() {
               </button>
               <button 
                 type="button" 
-                className="px-8 py-4 rounded-[6px] bg-pegadaian-yellow text-pegadaian-green hover:opacity-90 font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm"
+                className="px-8 py-4 rounded-[6px] bg-pegadaian-yellow text-pegadaian-green hover:opacity-90 font-bold transition-all transform text-sm"
               >
                 Kirim & Evaluasi AI ✨
               </button>

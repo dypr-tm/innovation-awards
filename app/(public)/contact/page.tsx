@@ -100,8 +100,8 @@ export default function ContactPage() {
               </div>
 
               <button 
-                type="button" 
-                className="w-full py-4 bg-pegadaian-green hover:opacity-90 text-white font-bold text-lg rounded-[6px] shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:scale-95"
+                type="submit" 
+                className="w-full py-4 bg-pegadaian-green text-white font-bold rounded-[6px] hover:opacity-90 transition-all"
               >
                 Kirim Pesan
               </button>

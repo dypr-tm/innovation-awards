@@ -36,7 +36,7 @@ export default function Home() {
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
             Pegadaian Innovation Center adalah wadah inovasi dan kolaborasi untuk solusi nyata.
           </p>
-          <a href="/repository" className="inline-block px-8 py-4 bg-pegadaian-green text-white font-bold rounded-[6px] shadow-xl hover:shadow-2xl hover:opacity-90 transition-all transform hover:-translate-y-1 active:scale-95 text-lg">
+          <a href="/repository" className="inline-block px-8 py-4 bg-pegadaian-green text-white font-bold rounded-[6px] hover:opacity-90 transition-all active:scale-95 text-lg">
             Lihat Inovasi
           </a>
         </div>
@@ -45,15 +45,15 @@ export default function Home() {
       {/* 2. Statistik Inovasi (Grid Layout) */}
       <section className="container mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-8 rounded-[12px] pegadaian-shadow text-center transform transition-transform hover:-translate-y-2">
+          <div className="bg-white p-8 rounded-[12px] text-center transition-all border border-gray-50">
             <div className="text-5xl font-extrabold text-pegadaian-green mb-4">50+</div>
             <div className="text-gray-500 font-semibold text-lg">Inovasi</div>
           </div>
-          <div className="bg-white p-8 rounded-[12px] pegadaian-shadow text-center transform transition-transform hover:-translate-y-2">
+          <div className="bg-white p-8 rounded-[12px] text-center transition-all border border-gray-50">
             <div className="text-5xl font-extrabold text-pegadaian-yellow mb-4">120+</div>
             <div className="text-gray-500 font-semibold text-lg">Inovator</div>
           </div>
-          <div className="bg-white p-8 rounded-[12px] pegadaian-shadow text-center transform transition-transform hover:-translate-y-2">
+          <div className="bg-white p-8 rounded-[12px] text-center transition-all border border-gray-50">
             <div className="text-5xl font-extrabold text-pegadaian-green mb-4">15+</div>
             <div className="text-gray-500 font-semibold text-lg">Proyek Nasional</div>
           </div>
@@ -70,9 +70,9 @@ export default function Home() {
         <div className="w-full overflow-x-auto pb-8 hide-scrollbar">
           <div className="flex gap-6 px-6 md:px-[calc(50vw-36rem)] min-w-max">
             {showcase.map((item, idx) => (
-              <div key={idx} className="w-80 bg-white rounded-[12px] overflow-hidden pegadaian-shadow flex flex-col shrink-0 group hover:-translate-y-2 transition-transform cursor-pointer">
+              <div key={idx} className="w-80 bg-white rounded-[12px] overflow-hidden flex flex-col shrink-0 group transition-transform cursor-pointer">
                 <div className="h-44 bg-gradient-to-br from-gray-100 to-gray-200 relative p-4 flex items-end">
-                  <div className={`absolute top-4 left-4 px-4 py-2 text-xs font-bold rounded-full text-white shadow-sm ${item.status === 'Live' ? 'bg-pegadaian-green' : 'bg-pegadaian-yellow'}`}>
+                  <div className={`absolute top-4 left-4 px-4 py-2 text-xs font-bold rounded-full text-white ${item.status === 'Live' ? 'bg-pegadaian-green' : 'bg-pegadaian-yellow'}`}>
                     {item.status}
                   </div>
                   {/* Image Placeholder Symbol */}
@@ -95,7 +95,7 @@ export default function Home() {
         <h2 className="text-3xl font-extrabold text-pegadaian-green text-center mb-8">Tanya Jawab (FAQ)</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-[12px] border border-gray-100 pegadaian-shadow overflow-hidden">
+            <div key={index} className="bg-white rounded-[12px] border border-gray-100 overflow-hidden">
               <button 
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none focus:bg-gray-50"
