@@ -17,15 +17,20 @@ export default function SearchFilterBar({ onSearch }: { onSearch?: (val: string,
         className="flex-grow px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow focus:bg-white transition-all w-full text-gray-800 placeholder-gray-400"
         value={term} onChange={(e) => setTerm(e.target.value)}
       />
-      <select 
-        className="w-full md:w-64 p-4 rounded-[6px] bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-700 cursor-pointer"
-        value={category} onChange={(e) => setCategory(e.target.value)}
-      >
-        <option value="">Semua Kategori</option>
-        <option value="teknologi">Teknologi</option>
-        <option value="layanan">Layanan</option>
-        <option value="proses-bisnis">Proses Bisnis</option>
-      </select>
+      <div className="relative w-full md:w-64 shrink-0">
+        <select 
+          className="w-full py-4 pl-4 pr-12 rounded-[6px] bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-700 cursor-pointer appearance-none"
+          value={category} onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">Semua Kategori</option>
+          <option value="teknologi">Teknologi</option>
+          <option value="layanan">Layanan</option>
+          <option value="proses-bisnis">Proses Bisnis</option>
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+      </div>
       <button 
         onClick={handleSearch}
         className="w-full md:w-auto px-8 py-4 bg-pegadaian-green hover:opacity-90 text-white font-semibold rounded-[6px] shadow-md hover:shadow-xl transition-all duration-300 active:scale-95 whitespace-nowrap shrink-0"
