@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pegadaian-navy: #003366;
+  --pegadaian-gold: #D4AF37;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
