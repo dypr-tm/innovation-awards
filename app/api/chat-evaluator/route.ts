@@ -10,11 +10,6 @@ const GEMINI_KEYS = [
   process.env.GEMINI_API_KEY_3,
 ].filter(Boolean) as string[];
 
-const DEEPSEEK_KEYS = [
-  process.env.DEEPSEEK_API_KEY_1,
-  process.env.DEEPSEEK_API_KEY_2,
-].filter(Boolean) as string[];
-
 // =====================================================
 // Fungsi: Call Gemini dengan rotasi key
 // =====================================================
@@ -42,57 +37,6 @@ async function callGemini(systemInstruction: string, contents: object[]): Promis
   }
 
   throw lastError ?? new Error('All Gemini keys exhausted');
-}
-
-// =====================================================
-// Fungsi: Call DeepSeek dengan rotasi key (fallback)
-// =====================================================
-async function callDeepSeek(systemInstruction: string, history: Array<{role: string; content: string}>): Promise<string> {
-  let lastError: Error | null = null;
-
-  const messages = [
-    { role: 'system', content: systemInstruction },
-    ...history,
-  ];
-
-  for (const key of DEEPSEEK_KEYS) {
-    try {
-      const response = await fetch('https://api.deepseek.com/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${key}`,
-        },
-        body: JSON.stringify({
-          model: 'deepseek-chat',
-          messages,
-          temperature: 0.7,
-          max_tokens: 1500,
-        }),
-      });
-
-      if (!response.ok) {
-        const errText = await response.text();
-        const isRateLimit = response.status === 429 || response.status === 503;
-        lastError = new Error(`DeepSeek ${response.status}: ${errText}`);
-        if (isRateLimit) {
-          console.warn(`[DeepSeek key rotation] Key failed ${response.status}, trying next...`);
-          continue;
-        }
-        throw lastError;
-      }
-
-      const data = await response.json();
-      return data.choices[0].message.content;
-    } catch (err: any) {
-      lastError = err;
-      const isRateLimit = err.message?.includes('429') || err.message?.includes('503');
-      if (isRateLimit) continue;
-      throw err;
-    }
-  }
-
-  throw lastError ?? new Error('All DeepSeek keys exhausted');
 }
 
 // =====================================================
@@ -139,11 +83,6 @@ Jangan memberikan skor. Jangan memberikan salam pembuka atau penutup. Langsung k
       parts: [{ text: msg.content }]
     }));
 
-    const deepseekMessages = history.map((msg: any) => ({
-      role: msg.role === 'ai' ? 'assistant' : 'user',
-      content: msg.content,
-    }));
-
     // ---------------------------------------------------
     // Execution
     // ---------------------------------------------------
@@ -151,8 +90,8 @@ Jangan memberikan skor. Jangan memberikan salam pembuka atau penutup. Langsung k
     try {
       responseText = await callGemini(systemInstruction, geminiContents);
     } catch (geminiErr: any) {
-      console.warn('[AI Provider] Gemini failed, fallback to DeepSeek');
-      responseText = await callDeepSeek(systemInstruction, deepseekMessages);
+      console.error('[AI Provider] Gemini failed:', geminiErr.message);
+      throw geminiErr;
     }
 
     // ---------------------------------------------------
