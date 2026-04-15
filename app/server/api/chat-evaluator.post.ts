@@ -1,3 +1,5 @@
+import { PEGADAIAN_KNOWLEDGE } from '../utils/ai-knowledge';
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const apiKey = process.env.DEEPSEEK_API_KEY_1 || 'sk-f96a47e3832647d9868ab59cd6a03de9';
@@ -11,7 +13,7 @@ export default defineEventHandler(async (event) => {
     body: JSON.stringify({
       model: 'deepseek-chat',
       messages: [
-        { role: 'system', content: 'You are an Innovation Evaluator for PT Pegadaian. Evaluate the user ideas based on impact and feasibility.' },
+        { role: 'system', content: PEGADAIAN_KNOWLEDGE },
         ...body.messages
       ],
       stream: false
