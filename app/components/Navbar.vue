@@ -10,7 +10,9 @@ const handleLogout = async () => {
 <template>
   <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <NuxtLink to="/" class="font-bold text-xl text-[#003366]">Pegadaian Innovation</NuxtLink>
+      <NuxtLink to="/" class="flex items-center gap-3">
+        <img src="/logo.png" alt="Pegadaian Innovation Center" class="h-10 w-auto object-contain" />
+      </NuxtLink>
       <div class="flex gap-6 items-center">
         <NuxtLink to="/pia">Awards</NuxtLink>
         <NuxtLink to="/repository">Gallery</NuxtLink>
