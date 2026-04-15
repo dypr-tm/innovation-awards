@@ -1,22 +1,115 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'fake-key-for-build');
+// =====================================================
+// API KEY POOLS - Rotasi otomatis saat rate limit
+// =====================================================
+const GEMINI_KEYS = [
+  process.env.GEMINI_API_KEY,
+  process.env.GEMINI_API_KEY_2,
+  process.env.GEMINI_API_KEY_3,
+].filter(Boolean) as string[];
 
+const DEEPSEEK_KEYS = [
+  process.env.DEEPSEEK_API_KEY_1,
+  process.env.DEEPSEEK_API_KEY_2,
+].filter(Boolean) as string[];
+
+// =====================================================
+// Fungsi: Call Gemini dengan rotasi key
+// =====================================================
+async function callGemini(contents: object[]): Promise<string> {
+  let lastError: Error | null = null;
+
+  for (const key of GEMINI_KEYS) {
+    try {
+      const genAI = new GoogleGenerativeAI(key);
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+      const result = await model.generateContent({ contents: contents as any });
+      return result.response.text();
+    } catch (err: any) {
+      lastError = err;
+      const isRateLimit = err.message?.includes('429') || err.message?.includes('503') || err.message?.includes('quota');
+      if (isRateLimit) {
+        console.warn(`[Gemini key rotation] Key failed with rate limit, trying next...`);
+        continue; // coba key berikutnya
+      }
+      throw err; // error lain, langsung lempar
+    }
+  }
+
+  throw lastError ?? new Error('All Gemini keys exhausted');
+}
+
+// =====================================================
+// Fungsi: Call DeepSeek dengan rotasi key (fallback)
+// =====================================================
+async function callDeepSeek(systemInstruction: string, history: Array<{role: string; content: string}>): Promise<string> {
+  let lastError: Error | null = null;
+
+  // Convert conversation history to OpenAI message format
+  const messages = [
+    { role: 'system', content: systemInstruction },
+    ...history,
+  ];
+
+  for (const key of DEEPSEEK_KEYS) {
+    try {
+      const response = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`,
+        },
+        body: JSON.stringify({
+          model: 'deepseek-chat',
+          messages,
+          max_tokens: 1200,
+        }),
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        const isRateLimit = response.status === 429 || response.status === 503;
+        lastError = new Error(`DeepSeek ${response.status}: ${errText}`);
+        if (isRateLimit) {
+          console.warn(`[DeepSeek key rotation] Key failed ${response.status}, trying next...`);
+          continue;
+        }
+        throw lastError;
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (err: any) {
+      lastError = err;
+      const isRateLimit = err.message?.includes('429') || err.message?.includes('503');
+      if (isRateLimit) continue;
+      throw err;
+    }
+  }
+
+  throw lastError ?? new Error('All DeepSeek keys exhausted');
+}
+
+// =====================================================
+// Main Handler
+// =====================================================
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    const { history, stage } = data; // stage 1 to 13
-    
+    const { history, stage } = data;
+
     // Tahap 13: Penutup
     if (stage >= 13) {
-      return NextResponse.json({ 
+      return NextResponse.json({
         constructiveResponse: "",
         question: "Terima kasih telah men-submit ide inovasi Anda. Sesi evaluasi telah selesai.",
         isFinished: true
       });
     }
 
+    // System instruction
     let systemInstruction = `
 # PERAN DAN TUJUAN
 Anda adalah AI "Evaluator Inovasi" untuk menguji, membedah, dan memandu penyempurnaan proposal inovasi pada kompetisi internal di perusahaan Gadai, Fidusia, dan Bullion.
@@ -47,9 +140,10 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
       systemInstruction += `\n\nATURAN KHUSUS TAHAP ${stage}: Gunakan format ganda [RESPON KONSTRUKTIF] dan [PERTANYAAN]. Eksplorasi elemen 5W1H yang tersisa (Why, Where, When, How) serta pendalaman DFV. Setiap giliran harus mewakili sudut pandang kritis dari persona yang berbeda.`;
     }
 
-    // Build conversation history for the contents array
-    // System instruction is injected as the first user message for compatibility
-    const conversationHistory: Array<{ role: string; parts: Array<{ text: string }> }> = [
+    // ---------------------------------------------------
+    // Build conversation history for Gemini (inline format)
+    // ---------------------------------------------------
+    const geminiContents = [
       { role: 'user', parts: [{ text: `[INSTRUKSI SISTEM]\n${systemInstruction}\n\n[MULAI SESI]\nHalo, saya ingin mensubmit ide inovasi.` }] },
       { role: 'model', parts: [{ text: 'Kamu punya ide/inovasi apa untuk PT Pegadaian?' }] },
       ...history.map((msg: any) => ({
@@ -58,62 +152,60 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
       }))
     ];
 
-    // Use generateContent with full conversation (no startChat to avoid systemInstruction issues)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    // ---------------------------------------------------
+    // Build conversation history for DeepSeek (OpenAI format)
+    // ---------------------------------------------------
+    const deepseekMessages = [
+      { role: 'user', content: 'Halo, saya ingin mensubmit ide inovasi.' },
+      { role: 'assistant', content: 'Kamu punya ide/inovasi apa untuk PT Pegadaian?' },
+      ...history.map((msg: any) => ({
+        role: msg.role === 'ai' ? 'assistant' : 'user',
+        content: msg.content,
+      }))
+    ];
 
-    // Retry up to 3 times if server is temporarily overloaded (503)
-    let result;
-    let lastError;
-    for (let attempt = 0; attempt < 3; attempt++) {
-      try {
-        result = await model.generateContent({
-          contents: conversationHistory as any,
-        });
-        break; // success, exit loop
-      } catch (err: any) {
-        lastError = err;
-        if (err.message?.includes('503') && attempt < 2) {
-          await new Promise(res => setTimeout(res, 1500 * (attempt + 1))); // wait 1.5s, then 3s
-          continue;
-        }
-        throw err; // non-503 or final attempt, rethrow
-      }
+    // ---------------------------------------------------
+    // Try Gemini first (all keys), then fallback to DeepSeek
+    // ---------------------------------------------------
+    let responseText: string;
+    try {
+      responseText = await callGemini(geminiContents);
+      console.log('[AI Provider] Gemini success');
+    } catch (geminiErr: any) {
+      console.warn('[AI Provider] All Gemini keys failed, falling back to DeepSeek...', geminiErr.message);
+      responseText = await callDeepSeek(systemInstruction, deepseekMessages);
+      console.log('[AI Provider] DeepSeek fallback success');
     }
-    if (!result) throw lastError;
 
-    const responseText = result.response.text();
-
-    // Robust parsing: handle various Gemini formatting around markers
+    // ---------------------------------------------------
+    // Parse response
+    // ---------------------------------------------------
     let constructiveResponse = "";
     let question = "";
 
     const responseClean = responseText.trim();
-
-    // Try to find [PERTANYAAN] marker (with or without ** and spacing)
     const pertanyaanMatch = responseClean.match(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/i);
     const responMatch = responseClean.match(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/i);
 
     if (pertanyaanMatch && pertanyaanMatch.index !== undefined) {
       const pertanyaanIndex = pertanyaanMatch.index + pertanyaanMatch[0].length;
       question = responseClean.slice(pertanyaanIndex).trim();
-      
-      // Extract constructive response: everything before [PERTANYAAN], strip the [RESPON KONSTRUKTIF] header
+
       let rawConstructive = responseClean.slice(0, pertanyaanMatch.index).trim();
       if (responMatch) {
         rawConstructive = rawConstructive.slice((responMatch.index ?? 0) + responMatch[0].length).trim();
       }
       constructiveResponse = rawConstructive;
     } else {
-      // Fallback: entire response goes to question
       question = responseClean;
     }
 
-    // Strip any remaining markdown label artifacts from question
+    // Strip label artifacts
     question = question.replace(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/gi, "").trim();
     question = question.replace(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/gi, "").trim();
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       constructiveResponse,
       question,
       raw: responseText
