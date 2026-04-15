@@ -18,7 +18,7 @@ const DEEPSEEK_KEYS = [
 // =====================================================
 // Fungsi: Call Gemini dengan rotasi key
 // =====================================================
-async function callGemini(contents: object[]): Promise<string> {
+async function callGemini(systemInstruction: string, contents: object[]): Promise<string> {
   let lastError: Error | null = null;
 
   for (const key of GEMINI_KEYS) {
@@ -149,7 +149,7 @@ Jangan memberikan skor. Jangan memberikan salam pembuka atau penutup. Langsung k
     // ---------------------------------------------------
     let responseText: string;
     try {
-      responseText = await callGemini(geminiContents);
+      responseText = await callGemini(systemInstruction, geminiContents);
     } catch (geminiErr: any) {
       console.warn('[AI Provider] Gemini failed, fallback to DeepSeek');
       responseText = await callDeepSeek(systemInstruction, deepseekMessages);
