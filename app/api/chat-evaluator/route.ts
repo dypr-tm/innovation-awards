@@ -59,7 +59,7 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
     ];
 
     // Use generateContent with full conversation (no startChat to avoid systemInstruction issues)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent({
       contents: conversationHistory as any,
     });
