@@ -49,10 +49,13 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
       systemInstruction += `\n\nATURAN KHUSUS TAHAP ${stage}: Gunakan format ganda [RESPON KONSTRUKTIF] dan [PERTANYAAN]. Eksplorasi elemen 5W1H yang tersisa (Why, Where, When, How) serta pendalaman DFV. Setiap giliran harus mewakili sudut pandang kritis dari persona yang berbeda.`;
     }
 
-    const conversationHistory = history.map((msg: any) => ({
-      role: msg.role === 'ai' ? 'model' : 'user',
-      parts: [{ text: msg.content }]
-    }));
+    const conversationHistory = [
+      { role: 'user', parts: [{ text: 'Halo, saya ingin mensubmit ide inovasi.' }] },
+      ...history.map((msg: any) => ({
+        role: msg.role === 'ai' ? 'model' : 'user',
+        parts: [{ text: msg.content }]
+      }))
+    ];
 
     const chat = model.startChat({
         systemInstruction: systemInstruction,
