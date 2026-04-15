@@ -19,7 +19,7 @@ async function callGemini(systemInstruction: string, contents: object[]): Promis
   // Dan gemini-1.5-flash untuk key cadangan (2 dan 3)
   for (let i = 0; i < GEMINI_KEYS.length; i++) {
     const key = GEMINI_KEYS[i];
-    const modelName = i === 0 ? 'gemini-2.0-flash' : 'gemini-1.5-flash';
+    const modelName = 'gemini-2.0-flash';
     
     try {
       const genAI = new GoogleGenerativeAI(key);
