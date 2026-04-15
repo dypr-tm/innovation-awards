@@ -59,10 +59,27 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
     ];
 
     // Use generateContent with full conversation (no startChat to avoid systemInstruction issues)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent({
-      contents: conversationHistory as any,
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+
+    // Retry up to 3 times if server is temporarily overloaded (503)
+    let result;
+    let lastError;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        result = await model.generateContent({
+          contents: conversationHistory as any,
+        });
+        break; // success, exit loop
+      } catch (err: any) {
+        lastError = err;
+        if (err.message?.includes('503') && attempt < 2) {
+          await new Promise(res => setTimeout(res, 1500 * (attempt + 1))); // wait 1.5s, then 3s
+          continue;
+        }
+        throw err; // non-503 or final attempt, rethrow
+      }
+    }
+    if (!result) throw lastError;
 
     const responseText = result.response.text();
 
