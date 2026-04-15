@@ -13,7 +13,6 @@
     "@google/generative-ai": "^0.21.0",
     "@nuxt/icon": "^1.10.3",
     "@nuxtjs/supabase": "^1.4.2",
-    "@pegadaian/kitvue": "latest",
     "jspdf": "^2.5.2",
     "nuxt": "^3.15.4",
     "vue": "latest",
