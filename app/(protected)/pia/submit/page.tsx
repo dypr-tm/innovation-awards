@@ -151,7 +151,7 @@ export default function SubmitAIPage() {
               </div>
 
               {/* Box 2: Jawaban Inovator */}
-              <div className={\`border rounded-[12px] p-6 \${turn.answer ? "bg-white border-gray-200 text-gray-800" : "bg-transparent border-dashed border-gray-300 text-gray-400"}\`}>
+              <div className={`border rounded-[12px] p-6 ${turn.answer ? "bg-white border-gray-200 text-gray-800" : "bg-transparent border-dashed border-gray-300 text-gray-400"}`}>
                 <div className="text-xs font-bold text-pegadaian-yellow mb-2 opacity-80 md:hidden">JAWABAN</div>
                 <div className="text-sm md:text-base">
                   {turn.answer || (idx === turns.length - 1 && !isFinished ? (
@@ -161,7 +161,7 @@ export default function SubmitAIPage() {
               </div>
 
               {/* Box 3: Respon Konstruktif */}
-              <div className={\`rounded-[12px] p-6 \${turn.constructiveResponse ? "bg-gray-200 border border-gray-300 text-gray-700" : "bg-gray-100/50 border border-transparent text-gray-400"}\`}>
+              <div className={`rounded-[12px] p-6 ${turn.constructiveResponse ? "bg-gray-200 border border-gray-300 text-gray-700" : "bg-gray-100/50 border border-transparent text-gray-400"}`}>
                 <div className="text-xs font-bold text-gray-500 mb-2 opacity-80 md:hidden">MASUKAN DARI AGENT</div>
                 <div className="text-sm md:text-base">
                   {turn.constructiveResponse || (idx === turns.length - 1 && turn.answer && isLoading ? (

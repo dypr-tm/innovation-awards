@@ -55,7 +55,7 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
     }));
 
     const chat = model.startChat({
-        systemInstruction: { parts: [{ text: systemInstruction}] },
+        systemInstruction: systemInstruction,
         history: conversationHistory.slice(0, -1) // Excluding the latest user message which we will send now
     });
 
