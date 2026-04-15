@@ -266,12 +266,8 @@ export default function SubmitAIPage() {
           </button>
 
           <h1 className="text-3xl md:text-4xl font-extrabold text-pegadaian-green tracking-tight mb-3">
-            AI Evaluator Inovasi
+            Submit Ide Kamu
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
-            Jawab pertanyaan secara bertahap. Evaluator memproses <strong>12 tahap</strong> analisis 5W1H dan DFV.
-          </p>
-
           {/* Progress Bar */}
           <div className="mt-4 max-w-xs mx-auto">
             <div className="flex justify-between text-xs text-gray-400 mb-1">
@@ -357,19 +353,17 @@ export default function SubmitAIPage() {
                   }}
                   disabled={isLoading}
                   placeholder="Ketik jawaban Anda di sini... (Shift+Enter untuk baris baru, max 500 karakter)"
-                  className={`w-full px-5 py-3.5 rounded-xl bg-gray-50 border focus:outline-none focus:ring-2 transition-all text-gray-800 resize-none disabled:opacity-50 text-sm ${
-                    isOverLimit
-                      ? 'border-red-400 focus:ring-red-300'
-                      : charRemaining <= 50
+                  className={`w-full px-5 py-3.5 rounded-xl bg-gray-50 border focus:outline-none focus:ring-2 transition-all text-gray-800 resize-none disabled:opacity-50 text-sm ${isOverLimit
+                    ? 'border-red-400 focus:ring-red-300'
+                    : charRemaining <= 50
                       ? 'border-yellow-400 focus:ring-yellow-300'
                       : 'border-gray-200 focus:ring-pegadaian-yellow'
-                  }`}
+                    }`}
                   rows={2}
                 />
                 {/* Character counter */}
-                <div className={`absolute bottom-2 right-3 text-xs font-medium ${
-                  isOverLimit ? 'text-red-500' : charRemaining <= 50 ? 'text-yellow-500' : 'text-gray-400'
-                }`}>
+                <div className={`absolute bottom-2 right-3 text-xs font-medium ${isOverLimit ? 'text-red-500' : charRemaining <= 50 ? 'text-yellow-500' : 'text-gray-400'
+                  }`}>
                   {charCount}/{MAX_CHARS}
                 </div>
               </div>
