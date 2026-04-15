@@ -44,7 +44,7 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
 `;
 
     if (stage === 2) {
-      systemInstruction += `\n\nATURAN KHUSUS TAHAP 2: Analisis ide dasar user pada [RESPON KONSTRUKTIF], lalu pada [PERTANYAAN] gunakan TEKS BAKU INI SECARA PERSIS tanpa tambahan kata lain: "siapa yang akan dibantu dengan inovasi ini?"`;
+      systemInstruction += `\n\nATURAN KHUSUS TAHAP 2: Analisis ide dasar user pada [RESPON KONSTRUKTIF], lalu pada [PERTANYAAN] tanyakan dengan bahasa santai dan natural, intinya: "inovasi ini siapa yang akan kamu bantu?". Boleh sedikit divariasikan kalimatnya agar terasa alami, bukan seperti robot.`;
     } else {
       systemInstruction += `\n\nATURAN KHUSUS TAHAP ${stage}: Gunakan format ganda [RESPON KONSTRUKTIF] dan [PERTANYAAN]. Eksplorasi elemen 5W1H yang tersisa (Why, Where, When, How) serta pendalaman DFV. Setiap giliran harus mewakili sudut pandang kritis dari persona yang berbeda.`;
     }
