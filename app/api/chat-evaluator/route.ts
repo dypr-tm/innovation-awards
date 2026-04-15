@@ -24,7 +24,10 @@ async function callGemini(contents: object[]): Promise<string> {
   for (const key of GEMINI_KEYS) {
     try {
       const genAI = new GoogleGenerativeAI(key);
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+      const model = genAI.getGenerativeModel({ 
+        model: 'gemini-1.5-flash', 
+        systemInstruction: systemInstruction 
+      });
       const result = await model.generateContent({ contents: contents as any });
       return result.response.text();
     } catch (err: any) {
@@ -32,9 +35,9 @@ async function callGemini(contents: object[]): Promise<string> {
       const isRateLimit = err.message?.includes('429') || err.message?.includes('503') || err.message?.includes('quota');
       if (isRateLimit) {
         console.warn(`[Gemini key rotation] Key failed with rate limit, trying next...`);
-        continue; // coba key berikutnya
+        continue; 
       }
-      throw err; // error lain, langsung lempar
+      throw err; 
     }
   }
 
@@ -47,7 +50,6 @@ async function callGemini(contents: object[]): Promise<string> {
 async function callDeepSeek(systemInstruction: string, history: Array<{role: string; content: string}>): Promise<string> {
   let lastError: Error | null = null;
 
-  // Convert conversation history to OpenAI message format
   const messages = [
     { role: 'system', content: systemInstruction },
     ...history,
@@ -64,7 +66,8 @@ async function callDeepSeek(systemInstruction: string, history: Array<{role: str
         body: JSON.stringify({
           model: 'deepseek-chat',
           messages,
-          max_tokens: 1200,
+          temperature: 0.7,
+          max_tokens: 1500,
         }),
       });
 
@@ -100,7 +103,6 @@ export async function POST(req: Request) {
     const data = await req.json();
     const { history, stage } = data;
 
-    // Tahap 13: Penutup
     if (stage >= 13) {
       return NextResponse.json({
         constructiveResponse: "",
@@ -109,107 +111,83 @@ export async function POST(req: Request) {
       });
     }
 
-    // System instruction
     let systemInstruction = `
-# PERAN DAN TUJUAN
-Anda adalah AI "Evaluator Inovasi" untuk menguji, membedah, dan memandu penyempurnaan proposal inovasi pada kompetisi internal di perusahaan Gadai, Fidusia, dan Bullion.
-Secara internal, Anda memproses informasi menggunakan pemikiran dari 7 pakar anonim: Digital Transformation & Innovation, Global Politics & Economy, Innovation Management & Strategies, Change Management, General Manager Gadai & Fidusia, Professor Ahli Bisnis Bullion, dan Pakar Keuangan Nasional.
+# PERAN
+Anda adalah AI "Evaluator Inovasi" untuk PT Pegadaian. Tugas Anda adalah membedah ide user menggunakan 7 perspektif pakar internal.
 
-# SUMBER PENGETAHUAN (KNOWLEDGE BASE) UTAMA
-Setiap persona WAJIB membaca, menganalisis, dan menyelaraskan seluruh argumennya dengan dokumen-dokumen rujukan yang relevan dengan ekosistem PT Pegadaian (Gadai, Fidusia, Bullion). Jangan menggunakan asumsi luar jika informasi tersebut sudah lazim diatur di industri tersebut.
+# ATURAN OUTPUT (WAJIB DIIKUTI)
+Respons Anda harus SELALU terdiri dari dua bagian dengan label yang jelas agar dapat diproses sistem:
 
-# STRUKTUR FORMAT OUTPUT (SANGAT KETAT)
-Mulai dari Tahap 2 hingga Tahap 12, respons Anda WAJIB selalu dibagi menjadi dua blok teks dengan format persis seperti di bawah ini. Jangan tambahkan basa-basi, salam, atau teks lain di luar format ini agar sistem dapat mem-parsing data:
+1. [RESPON KONSTRUKTIF]
+Berikan analisis tajam, masukan, dan kritik membangun terhadap JAWABAN USER SEBELUMNYA. Gunakan bahasa yang profesional namun suportif. Fokus pada Desirability, Feasibility, dan Viability.
 
-[RESPON KONSTRUKTIF]
-(Berikan sintesis masukan singkat, padat, dan analitis berdasarkan jawaban user sebelumnya. Gunakan sudut pandang pakar untuk memberikan insight yang bisa langsung dipakai user untuk menyusun kerangka makalah inovasinya. Dilarang memuji secara berlebihan.)
+2. [PERTANYAAN]
+Berikan SATU pertanyaan tajam untuk menggali ide user lebih dalam ke tahap berikutnya (Tahap ${stage}/12). Gunakan metode Socrates.
 
-[PERTANYAAN]
-(Satu pertanyaan tajam menggunakan metode Socrates untuk men-challenge atau menggali ide ke tahap selanjutnya. Jangan berikan solusi di bagian ini.)
+# ATURAN KHUSUS TAHAP 2
+Jika stage ${stage} adalah 2, tanyakan dengan bahasa santai: "Inovasi ini siapa yang akan kamu bantu?" (siapa target penggunanya?).
 
-# KERANGKA PENILAIAN (DFV TERSEMBUNYI) & WILDCARD
-- Bedah proposal berdasarkan Desirability, Feasibility, dan Viability secara tersembunyi (tanpa menyebutkan label DFV secara eksplisit). Persona Digital Transformation memegang kendali skor akhir.
-- WILDCARD: Jika simulasi persona internal menemukan jalan buntu/deadlock pada ide user, ubah bagian [PERTANYAAN] menjadi skenario krisis (Black Swan event) untuk menguji ketahanan model bisnis inovasi tersebut.
-
-ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di layar chat pada tahap mana pun.
+# CATATAN
+Jangan memberikan skor. Jangan memberikan salam pembuka atau penutup. Langsung ke format [RESPON KONSTRUKTIF] dan [PERTANYAAN].
 `;
 
-    if (stage === 2) {
-      systemInstruction += `\n\nATURAN KHUSUS TAHAP 2: Analisis ide dasar user pada [RESPON KONSTRUKTIF], lalu pada [PERTANYAAN] tanyakan dengan bahasa santai dan natural, intinya: "inovasi ini siapa yang akan kamu bantu?". Boleh sedikit divariasikan kalimatnya agar terasa alami, bukan seperti robot.`;
-    } else {
-      systemInstruction += `\n\nATURAN KHUSUS TAHAP ${stage}: Gunakan format ganda [RESPON KONSTRUKTIF] dan [PERTANYAAN]. Eksplorasi elemen 5W1H yang tersisa (Why, Where, When, How) serta pendalaman DFV. Setiap giliran harus mewakili sudut pandang kritis dari persona yang berbeda.`;
-    }
+    // ---------------------------------------------------
+    // Build conversation history
+    // ---------------------------------------------------
+    const geminiContents = history.map((msg: any) => ({
+      role: msg.role === 'ai' ? 'model' : 'user',
+      parts: [{ text: msg.content }]
+    }));
+
+    const deepseekMessages = history.map((msg: any) => ({
+      role: msg.role === 'ai' ? 'assistant' : 'user',
+      content: msg.content,
+    }));
 
     // ---------------------------------------------------
-    // Build conversation history for Gemini (inline format)
-    // ---------------------------------------------------
-    const geminiContents = [
-      { role: 'user', parts: [{ text: `[INSTRUKSI SISTEM]\n${systemInstruction}\n\n[MULAI SESI]\nHalo, saya ingin mensubmit ide inovasi.` }] },
-      { role: 'model', parts: [{ text: 'Kamu punya ide/inovasi apa untuk PT Pegadaian?' }] },
-      ...history.map((msg: any) => ({
-        role: msg.role === 'ai' ? 'model' : 'user',
-        parts: [{ text: msg.content }]
-      }))
-    ];
-
-    // ---------------------------------------------------
-    // Build conversation history for DeepSeek (OpenAI format)
-    // ---------------------------------------------------
-    const deepseekMessages = [
-      { role: 'user', content: 'Halo, saya ingin mensubmit ide inovasi.' },
-      { role: 'assistant', content: 'Kamu punya ide/inovasi apa untuk PT Pegadaian?' },
-      ...history.map((msg: any) => ({
-        role: msg.role === 'ai' ? 'assistant' : 'user',
-        content: msg.content,
-      }))
-    ];
-
-    // ---------------------------------------------------
-    // Try Gemini first (all keys), then fallback to DeepSeek
+    // Execution
     // ---------------------------------------------------
     let responseText: string;
     try {
       responseText = await callGemini(geminiContents);
-      console.log('[AI Provider] Gemini success');
     } catch (geminiErr: any) {
-      console.warn('[AI Provider] All Gemini keys failed, falling back to DeepSeek...', geminiErr.message);
+      console.warn('[AI Provider] Gemini failed, fallback to DeepSeek');
       responseText = await callDeepSeek(systemInstruction, deepseekMessages);
-      console.log('[AI Provider] DeepSeek fallback success');
     }
 
     // ---------------------------------------------------
-    // Parse response
+    // Robust Parsing
     // ---------------------------------------------------
     let constructiveResponse = "";
     let question = "";
 
     const responseClean = responseText.trim();
-    const pertanyaanMatch = responseClean.match(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/i);
-    const responMatch = responseClean.match(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/i);
+    // Match markers with optional asterisks or hashes
+    const pertRegex = /[#*]*\s*\[?PERTANYAAN\]?[:\s]*/i;
+    const respRegex = /[#*]*\s*\[?RESPON KONSTRUKTIF\]?[:\s]*/i;
 
-    if (pertanyaanMatch && pertanyaanMatch.index !== undefined) {
-      const pertanyaanIndex = pertanyaanMatch.index + pertanyaanMatch[0].length;
-      question = responseClean.slice(pertanyaanIndex).trim();
+    const pertMatch = responseClean.match(pertRegex);
+    const respMatch = responseClean.match(respRegex);
 
-      let rawConstructive = responseClean.slice(0, pertanyaanMatch.index).trim();
-      if (responMatch) {
-        rawConstructive = rawConstructive.slice((responMatch.index ?? 0) + responMatch[0].length).trim();
-      }
-      constructiveResponse = rawConstructive;
+    if (pertMatch && pertMatch.index !== undefined) {
+      // Everything before PERTANYAAN is constructive
+      let rawResp = responseClean.slice(0, pertMatch.index).trim();
+      // Remove the RESPON KONSTRUKTIF header if present
+      rawResp = rawResp.replace(respRegex, "").trim();
+      constructiveResponse = rawResp;
+
+      // Everything after PERTANYAAN is the question
+      question = responseClean.slice(pertMatch.index + pertMatch[0].length).trim();
     } else {
       question = responseClean;
     }
 
-    // Strip label artifacts
-    question = question.replace(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/gi, "").trim();
-    question = question.replace(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/gi, "").trim();
-
     return NextResponse.json({
       success: true,
       constructiveResponse,
-      question,
-      raw: responseText
+      question
     });
+
   } catch (error: any) {
     console.error("AI Evaluation Error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
