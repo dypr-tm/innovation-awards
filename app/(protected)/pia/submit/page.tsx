@@ -253,33 +253,33 @@ export default function SubmitAIPage() {
     <div className="pt-10 pb-36 bg-gray-50/50 min-h-screen">
       <div className="container mx-auto px-6 max-w-6xl">
 
-        {/* Header with Back Button */}
-        <div className="mb-10 text-center relative">
+        {/* Header with Back Button aligned with Title */}
+        <div className="mb-10 relative flex items-center justify-center min-h-[48px]">
           <button
             onClick={() => router.push('/pia')}
-            className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-gray-500 hover:text-pegadaian-green font-medium transition-colors group"
+            className="absolute left-0 flex items-center gap-2 text-gray-500 hover:text-pegadaian-green font-medium transition-colors group"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             <span className="hidden sm:inline text-sm">Kembali</span>
           </button>
 
-          <h1 className="text-3xl md:text-4xl font-extrabold text-pegadaian-green tracking-tight mb-3">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-pegadaian-green tracking-tight">
             Submit Ide Kamu
           </h1>
-          {/* Progress Bar */}
-          <div className="mt-4 max-w-xs mx-auto">
-            <div className="flex justify-between text-xs text-gray-400 mb-1">
-              <span>Tahap {turns.length}</span>
-              <span>12</span>
-            </div>
-            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-pegadaian-green rounded-full transition-all duration-500"
-                style={{ width: `${(turns.length / 12) * 100}%` }}
-              />
-            </div>
+        </div>
+
+        {/* Full Width Progress Bar */}
+        <div className="mb-10">
+          <div className="flex justify-center text-xs text-gray-400 mb-2 font-bold tracking-widest">
+            {Math.round((turns.length / 12) * 100)}%
+          </div>
+          <div className="h-2 bg-gray-200 rounded-full overflow-hidden w-full">
+            <div
+              className="h-full bg-pegadaian-green rounded-full transition-all duration-700 ease-out"
+              style={{ width: `${(turns.length / 12) * 100}%` }}
+            />
           </div>
         </div>
 
