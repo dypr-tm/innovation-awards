@@ -50,14 +50,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-6 bg-gray-50/50">
-      <div className="w-full max-w-md bg-white rounded-[12px] p-8 md:p-10 border border-gray-100">
+      <div className="w-full max-w-md bg-white rounded-3xl pegadaian-shadow p-8 md:p-10 border border-gray-100">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-pegadaian-green mb-2">Masuk Akun</h1>
+          <h1 className="text-3xl font-extrabold text-pegadaian-navy mb-2">Masuk Akun</h1>
           <p className="text-gray-500">Gunakan akun MVP dummy atau profil Anda</p>
         </div>
 
         {errorMsg && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 font-semibold rounded-[6px] text-sm text-center">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 font-semibold rounded-xl text-sm text-center">
             {errorMsg}
           </div>
         )}
@@ -70,8 +70,8 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Masukkan Email" 
-              className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
+              placeholder="superadmin@pegadaian.co.id" 
+              className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
             />
           </div>
           <div>
@@ -81,23 +81,23 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Masukkan kata sandi" 
-              className="w-full px-6 py-4 rounded-[6px] bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-yellow transition-all text-gray-800"
+              placeholder="password123" 
+              className="w-full px-5 py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pegadaian-gold transition-all text-gray-800"
             />
           </div>
 
           <div className="flex items-center justify-between pt-2">
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 text-pegadaian-yellow border-gray-300 rounded focus:ring-pegadaian-yellow" />
+              <input type="checkbox" className="w-4 h-4 text-pegadaian-gold border-gray-300 rounded focus:ring-pegadaian-gold" />
               <span className="text-sm text-gray-600 font-medium">Ingat Saya</span>
             </label>
-            <a href="#" className="text-sm font-semibold text-pegadaian-green hover:text-pegadaian-yellow transition-colors">Lupa sandi?</a>
+            <a href="#" className="text-sm font-semibold text-pegadaian-navy hover:text-pegadaian-gold transition-colors">Lupa sandi?</a>
           </div>
 
           <button 
             type="submit"
             disabled={loading}
-            className={`w-full py-4 mt-6 bg-pegadaian-green hover:opacity-90 text-white font-bold rounded-[6px] transition-all ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            className={`w-full py-4 mt-6 bg-pegadaian-navy hover:bg-pegadaian-dark text-white font-bold rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-1 active:scale-95'}`}
           >
             {loading ? 'Memproses...' : 'Masuk dengan Email'}
           </button>
@@ -114,7 +114,7 @@ export default function LoginPage() {
           onClick={handleGoogleLogin}
           disabled={loading}
           type="button"
-          className="w-full py-4 mt-8 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-bold rounded-[6px] transition-all flex items-center justify-center gap-3"
+          className="w-full py-4 mt-8 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-bold rounded-xl shadow-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />

@@ -13,9 +13,9 @@ export default function RepositoryPage() {
 
   return (
     <div className="pt-12 pb-24 bg-gray-50/50 min-h-screen">
-      <div className="container mx-auto px-6 py-12">
+      <section className="container mx-auto px-6 max-w-6xl">
         <div className="mb-12">
-          <h1 className="text-4xl font-extrabold text-pegadaian-green mb-4 tracking-tight">Galeri Inovasi</h1>
+          <h1 className="text-4xl font-extrabold text-pegadaian-navy mb-4 tracking-tight">Galeri Inovasi</h1>
           <p className="text-gray-600 text-lg">Eksplorasi ide-ide brilian dari seluruh penjuru Pegadaian.</p>
         </div>
 
@@ -36,11 +36,11 @@ export default function RepositoryPage() {
         </div>
         
         <div className="text-center mt-12">
-          <button className="px-8 py-4 bg-white border border-gray-200 text-pegadaian-green font-semibold rounded-[6px] hover:bg-gray-50 transition-colors">
+          <button className="px-8 py-3 bg-white border border-gray-200 text-pegadaian-navy font-semibold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
             Muat Lebih Banyak
           </button>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

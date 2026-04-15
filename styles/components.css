@@ -153,12 +153,13 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   transition: all var(--transition-base);
-  box-shadow: var(--glass-shadow);
 }
 
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* ── Buttons ── */
@@ -177,16 +178,17 @@
 }
 
 .btn--primary {
-  height: 48px;
-  padding: 0 24px;
+  height: 52px;
+  padding: 0 32px;
   background: var(--btn-green);
   color: white;
   font-size: 15px;
-  border-radius: var(--radius-md);
 }
 
 .btn--primary:hover {
   background: var(--btn-green-hover);
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 171, 78, 0.3);
 }
 
 .btn--secondary {
@@ -218,9 +220,8 @@
 .btn--google {
   width: 100%;
   height: 48px;
-  background: white;
+  background: var(--text-primary);
   color: #1a1a1a;
-  border: 1px solid #e1e1e1;
   font-size: 14px;
   font-weight: var(--fw-semibold);
   border-radius: var(--radius-md);
@@ -228,7 +229,8 @@
 }
 
 .btn--google:hover {
-  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .btn--sso {
@@ -244,6 +246,8 @@
 
 .btn--sso:hover {
   background: var(--btn-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 171, 78, 0.25);
 }
 
 /* ── Section Title ── */

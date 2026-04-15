@@ -3,17 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #CDEBE2;
+  --background: #f8fafc;
   --foreground: #0f172a;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Nunito Sans', sans-serif;
-  line-height: 1.5;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .pegadaian-shadow {
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }

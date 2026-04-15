@@ -21,7 +21,7 @@
   width: 600px;
   height: 600px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, rgba(0, 171, 78, 0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(130, 205, 183, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -121,7 +121,7 @@
 .hero__orb--teal {
   width: 500px;
   height: 500px;
-  background: rgba(0, 171, 78, 0.05);
+  background: rgba(130, 205, 183, 0.06);
   top: 20%;
   right: -10%;
   animation: orbDrift1 20s ease-in-out infinite;
@@ -130,7 +130,7 @@
 .hero__orb--gold {
   width: 400px;
   height: 400px;
-  background: rgba(248, 197, 27, 0.05);
+  background: rgba(214, 196, 122, 0.04);
   bottom: 10%;
   left: -5%;
   animation: orbDrift2 25s ease-in-out infinite;
@@ -139,7 +139,7 @@
 .hero__orb--teal2 {
   width: 300px;
   height: 300px;
-  background: rgba(0, 171, 78, 0.03);
+  background: rgba(130, 205, 183, 0.04);
   top: 60%;
   left: 40%;
   animation: orbDrift3 18s ease-in-out infinite;

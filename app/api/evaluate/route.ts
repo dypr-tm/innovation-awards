@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       .join('\\n') || 'Belum ada data inovasi sebelumnya.';
 
     // 2. Setup Gemini Model
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     // 3. Buat Prompt untuk Gemini Action
     const prompt = `

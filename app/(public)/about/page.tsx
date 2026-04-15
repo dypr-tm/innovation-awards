@@ -1,4 +1,4 @@
-import { MdGroups, MdLightbulb, MdTrendingUp } from "react-icons/md";
+import { Users, Lightbulb, TrendingUp } from "lucide-react";
 
 export default function AboutPage() {
   const teamMembers = [
@@ -19,33 +19,33 @@ export default function AboutPage() {
             {/* Playful Illustration Placeholder */}
             <div className="relative w-full aspect-square max-w-md mx-auto">
               <div className="absolute inset-0 bg-yellow-100 rounded-full scale-95 origin-center animate-pulse"></div>
-              <div className="absolute inset-4 bg-pegadaian-green rounded-[12px] rotate-3 opacity-10"></div>
+              <div className="absolute inset-4 bg-pegadaian-navy rounded-3xl rotate-3 opacity-10"></div>
               <div className="absolute inset-0 flex items-center justify-center p-8">
-                <svg className="w-full h-full text-pegadaian-green" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-full h-full text-pegadaian-navy" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 20C55.817 20 20 55.817 20 100C20 144.183 55.817 180 100 180C144.183 180 180 144.183 180 100C180 55.817 144.183 20 100 20ZM100 160C66.863 160 40 133.137 40 100C40 66.863 66.863 40 100 40C133.137 40 160 66.863 160 100C160 133.137 133.137 160 100 160Z" fill="currentColor"/>
-                  <path d="M100 60C77.909 60 60 77.909 60 100C60 122.091 77.909 140 100 140C122.091 140 140 122.091 140 100C140 77.909 122.091 60 100 60ZM100 120C88.954 120 80 111.046 80 100C80 88.954 88.954 80 100 80C111.046 80 120 88.954 120 100C120 111.046 111.046 120 100 120Z" fill="#F8C51B"/>
+                  <path d="M100 60C77.909 60 60 77.909 60 100C60 122.091 77.909 140 100 140C122.091 140 140 122.091 140 100C140 77.909 122.091 60 100 60ZM100 120C88.954 120 80 111.046 80 100C80 88.954 88.954 80 100 80C111.046 80 120 88.954 120 100C120 111.046 111.046 120 100 120Z" fill="#FBBF24"/>
                 </svg>
               </div>
             </div>
           </div>
           
           <div className="w-full md:w-1/2">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-pegadaian-green mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-pegadaian-navy mb-6 tracking-tight leading-tight">
               Mewujudkan <br className="hidden md:block"/>
-              <span className="text-pegadaian-yellow">Masa Depan Bersama</span>
+              <span className="text-pegadaian-gold">Masa Depan Bersama</span>
             </h1>
-            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-yellow mb-6">
-              <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
-                <MdLightbulb className="text-pegadaian-yellow" size={24} />
+            <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-pegadaian-gold mb-6 shadow-sm">
+              <h3 className="text-lg font-bold text-pegadaian-navy mb-2 flex items-center gap-2">
+                <Lightbulb className="text-pegadaian-gold" size={20} />
                 Visi Kami
               </h3>
               <p className="text-gray-700 italic">
                 "Menjadi motor penggerak transformasi digital dan inovasi berkelanjutan."
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-[12px] border-l-4 border-pegadaian-green">
-              <h3 className="text-lg font-bold text-pegadaian-green mb-2 flex items-center gap-2">
-                <MdTrendingUp className="text-pegadaian-green" size={24} />
+            <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-pegadaian-navy shadow-sm">
+              <h3 className="text-lg font-bold text-pegadaian-navy mb-2 flex items-center gap-2">
+                <TrendingUp className="text-pegadaian-navy" size={20} />
                 Misi Kami
               </h3>
               <p className="text-gray-700">
@@ -57,10 +57,10 @@ export default function AboutPage() {
       </section>
 
       {/* Tim Kami Section */}
-      <section className="container mx-auto px-6 max-w-5xl bg-gray-50/50 py-16 rounded-[12px]">
+      <section className="container mx-auto px-6 max-w-5xl bg-gray-50/50 py-16 rounded-3xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold text-pegadaian-green mb-4 inline-flex items-center justify-center gap-4">
-            <MdGroups className="text-pegadaian-yellow" size={40} />
+          <h2 className="text-3xl font-extrabold text-pegadaian-navy mb-4 inline-flex items-center justify-center gap-3">
+            <Users className="text-pegadaian-gold" size={32} />
             Tim Kami
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto">
@@ -71,7 +71,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-8">
           {teamMembers.map((member, idx) => (
             <div key={idx} className="w-40 md:w-48 text-center group">
-              <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full bg-white border border-gray-100 p-2 mb-4 group-hover:bg-gray-50 transition-all duration-300">
+              <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full bg-white pegadaian-shadow p-2 mb-4 group-hover:-translate-y-2 transition-transform duration-300">
                 <img 
                   src={member.img} 
                   alt={member.name} 
@@ -79,7 +79,7 @@ export default function AboutPage() {
                   loading="lazy"
                 />
               </div>
-              <h4 className="text-lg font-bold text-pegadaian-green group-hover:text-pegadaian-yellow transition-colors">{member.name}</h4>
+              <h4 className="text-lg font-bold text-pegadaian-navy group-hover:text-pegadaian-gold transition-colors">{member.name}</h4>
               <p className="text-sm font-medium text-gray-500">{member.role}</p>
             </div>
           ))}
