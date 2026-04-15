@@ -66,18 +66,35 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
     const result = await chat.sendMessage(latestUserMessage);
     const responseText = result.response.text();
 
-    // Pastikan mem-parsing format [RESPON KONSTRUKTIF] dan [PERTANYAAN]
+    // Robust parsing: handle various Gemini formatting around markers
+    // e.g., **[PERTANYAAN]**, [PERTANYAAN], **[PERTANYAAN] **, etc.
     let constructiveResponse = "";
     let question = "";
 
-    const splitText = responseText.split("**[PERTANYAAN]**");
-    if (splitText.length > 1) {
-      constructiveResponse = splitText[0].replace("**[RESPON KONSTRUKTIF]**", "").trim();
-      question = splitText[1].trim();
+    const responseClean = responseText.trim();
+
+    // Try to find [PERTANYAAN] marker first (with or without ** and spacing)
+    const pertanyaanMatch = responseClean.match(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/i);
+    const responMatch = responseClean.match(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/i);
+
+    if (pertanyaanMatch && pertanyaanMatch.index !== undefined) {
+      const pertanyaanIndex = pertanyaanMatch.index + pertanyaanMatch[0].length;
+      question = responseClean.slice(pertanyaanIndex).trim();
+      
+      // Extract constructive response: everything before [PERTANYAAN], strip the [RESPON KONSTRUKTIF] header
+      let rawConstructive = responseClean.slice(0, pertanyaanMatch.index).trim();
+      if (responMatch) {
+        rawConstructive = rawConstructive.slice((responMatch.index ?? 0) + responMatch[0].length).trim();
+      }
+      constructiveResponse = rawConstructive;
     } else {
-      // Fallback
-      question = responseText.trim();
+      // Fallback: entire response goes to question
+      question = responseClean;
     }
+
+    // Strip any remaining markdown label artifacts from question
+    question = question.replace(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/gi, "").trim();
+    question = question.replace(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/gi, "").trim();
 
     return NextResponse.json({ 
       success: true, 
