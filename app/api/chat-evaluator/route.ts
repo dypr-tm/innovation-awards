@@ -16,11 +16,16 @@ const GEMINI_KEYS = [
 async function callGemini(systemInstruction: string, contents: object[]): Promise<string> {
   let lastError: Error | null = null;
 
-  for (const key of GEMINI_KEYS) {
+  // Gunakan gemini-2.0-flash untuk key utama (karena user menyebut ini 'Gemini 2.5')
+  // Dan gemini-1.5-flash untuk key cadangan (2 dan 3)
+  for (let i = 0; i < GEMINI_KEYS.length; i++) {
+    const key = GEMINI_KEYS[i];
+    const modelName = i === 0 ? 'gemini-2.0-flash' : 'gemini-1.5-flash';
+    
     try {
       const genAI = new GoogleGenerativeAI(key);
       const model = genAI.getGenerativeModel({ 
-        model: 'gemini-1.5-flash', 
+        model: modelName,
         systemInstruction: systemInstruction 
       });
       const result = await model.generateContent({ contents: contents as any });
@@ -29,7 +34,7 @@ async function callGemini(systemInstruction: string, contents: object[]): Promis
       lastError = err;
       const isRateLimit = err.message?.includes('429') || err.message?.includes('503') || err.message?.includes('quota');
       if (isRateLimit) {
-        console.warn(`[Gemini key rotation] Key failed with rate limit, trying next...`);
+        console.warn(`[Gemini key rotation] Key ${i+1} failed (${modelName}), trying next...`);
         continue; 
       }
       throw err; 
