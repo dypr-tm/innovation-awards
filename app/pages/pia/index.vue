@@ -1,4 +1,14 @@
 <script setup lang="ts">
+const route = useRoute()
+const showToast = ref(false)
+
+onMounted(() => {
+  if (route.query.error === 'type_not_allowed') {
+    showToast.value = true
+    setTimeout(() => showToast.value = false, 5000)
+  }
+})
+
 const categories = [
   { title: "Product Innovation", desc: "Produk keuangan baru atau peningkatan fitur yang sudah ada." },
   { title: "Process Innovation", desc: "Optimasi alur kerja internal untuk efisiensi yang lebih tinggi." },
@@ -15,6 +25,21 @@ const timeline = [
 
 <template>
   <div class="pt-24 pb-32">
+    <!-- Error Toast -->
+    <Transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform translate-y-full opacity-0"
+      enter-to-class="transform translate-y-0 opacity-100"
+      leave-active-class="transition duration-200 ease-in"
+      leave-from-class="transform translate-y-0 opacity-100"
+      leave-to-class="transform translate-y-full opacity-0"
+    >
+      <div v-if="showToast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] bg-red-600 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 font-bold">
+        <Icon name="heroicons:exclamation-triangle" class="w-6 h-6" />
+        Terjadi error, tipe user tidak diperbolehkan
+      </div>
+    </Transition>
+
     <!-- PIA Hero -->
     <section class="py-24 px-6 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white"></div>
