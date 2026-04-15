@@ -17,8 +17,6 @@ export async function POST(req: Request) {
       });
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
     let systemInstruction = `
 # PERAN DAN TUJUAN
 Anda adalah AI "Evaluator Inovasi" untuk menguji, membedah, dan memandu penyempurnaan proposal inovasi pada kompetisi internal di perusahaan Gadai, Fidusia, dan Bullion.
@@ -30,17 +28,17 @@ Setiap persona WAJIB membaca, menganalisis, dan menyelaraskan seluruh argumennya
 # STRUKTUR FORMAT OUTPUT (SANGAT KETAT)
 Mulai dari Tahap 2 hingga Tahap 12, respons Anda WAJIB selalu dibagi menjadi dua blok teks dengan format persis seperti di bawah ini. Jangan tambahkan basa-basi, salam, atau teks lain di luar format ini agar sistem dapat mem-parsing data:
 
-**[RESPON KONSTRUKTIF]**
-(Berikan sintesis masukan singkat, padat, dan analitis berdasarkan jawaban user sebelumnya. Gunakan sudut pandang pakar untuk memberikan *insight* yang bisa langsung dipakai user untuk menyusun kerangka makalah inovasinya. Dilarang memuji secara berlebihan.)
+[RESPON KONSTRUKTIF]
+(Berikan sintesis masukan singkat, padat, dan analitis berdasarkan jawaban user sebelumnya. Gunakan sudut pandang pakar untuk memberikan insight yang bisa langsung dipakai user untuk menyusun kerangka makalah inovasinya. Dilarang memuji secara berlebihan.)
 
-**[PERTANYAAN]**
+[PERTANYAAN]
 (Satu pertanyaan tajam menggunakan metode Socrates untuk men-challenge atau menggali ide ke tahap selanjutnya. Jangan berikan solusi di bagian ini.)
 
 # KERANGKA PENILAIAN (DFV TERSEMBUNYI) & WILDCARD
-- Bedah proposal berdasarkan *Desirability*, *Feasibility*, dan *Viability* secara tersembunyi (tanpa menyebutkan label DFV secara eksplisit). Persona Digital Transformation memegang kendali skor akhir.
-- **WILDCARD:** Jika simulasi persona internal menemukan jalan buntu/deadlock pada ide user, ubah bagian **[PERTANYAAN]** menjadi skenario krisis (*Black Swan event*) untuk menguji ketahanan model bisnis inovasi tersebut.
+- Bedah proposal berdasarkan Desirability, Feasibility, dan Viability secara tersembunyi (tanpa menyebutkan label DFV secara eksplisit). Persona Digital Transformation memegang kendali skor akhir.
+- WILDCARD: Jika simulasi persona internal menemukan jalan buntu/deadlock pada ide user, ubah bagian [PERTANYAAN] menjadi skenario krisis (Black Swan event) untuk menguji ketahanan model bisnis inovasi tersebut.
 
-ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di layar *chat* pada tahap mana pun.
+ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di layar chat pada tahap mana pun.
 `;
 
     if (stage === 2) {
@@ -49,31 +47,32 @@ ATURAN KERAHASIAAN: Anda DILARANG KERAS menampilkan skor atau nilai akhir di lay
       systemInstruction += `\n\nATURAN KHUSUS TAHAP ${stage}: Gunakan format ganda [RESPON KONSTRUKTIF] dan [PERTANYAAN]. Eksplorasi elemen 5W1H yang tersisa (Why, Where, When, How) serta pendalaman DFV. Setiap giliran harus mewakili sudut pandang kritis dari persona yang berbeda.`;
     }
 
-    const conversationHistory = [
-      { role: 'user', parts: [{ text: 'Halo, saya ingin mensubmit ide inovasi.' }] },
+    // Build conversation history for the contents array
+    // System instruction is injected as the first user message for compatibility
+    const conversationHistory: Array<{ role: string; parts: Array<{ text: string }> }> = [
+      { role: 'user', parts: [{ text: `[INSTRUKSI SISTEM]\n${systemInstruction}\n\n[MULAI SESI]\nHalo, saya ingin mensubmit ide inovasi.` }] },
+      { role: 'model', parts: [{ text: 'Kamu punya ide/inovasi apa untuk PT Pegadaian?' }] },
       ...history.map((msg: any) => ({
         role: msg.role === 'ai' ? 'model' : 'user',
         parts: [{ text: msg.content }]
       }))
     ];
 
-    const chat = model.startChat({
-        systemInstruction: systemInstruction,
-        history: conversationHistory.slice(0, -1) // Excluding the latest user message which we will send now
+    // Use generateContent with full conversation (no startChat to avoid systemInstruction issues)
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const result = await model.generateContent({
+      contents: conversationHistory as any,
     });
 
-    const latestUserMessage = conversationHistory[conversationHistory.length - 1].parts[0].text;
-    const result = await chat.sendMessage(latestUserMessage);
     const responseText = result.response.text();
 
     // Robust parsing: handle various Gemini formatting around markers
-    // e.g., **[PERTANYAAN]**, [PERTANYAAN], **[PERTANYAAN] **, etc.
     let constructiveResponse = "";
     let question = "";
 
     const responseClean = responseText.trim();
 
-    // Try to find [PERTANYAAN] marker first (with or without ** and spacing)
+    // Try to find [PERTANYAAN] marker (with or without ** and spacing)
     const pertanyaanMatch = responseClean.match(/\*{0,2}\[PERTANYAAN\]\*{0,2}\s*/i);
     const responMatch = responseClean.match(/\*{0,2}\[RESPON KONSTRUKTIF\]\*{0,2}\s*/i);
 
