@@ -115,18 +115,28 @@ const submitAnswer = async (index: number) => {
           </div>
 
           <!-- Middle: User Input/Answer Card -->
-          <div class="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm flex flex-col gap-4">
+          <div class="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm flex flex-col gap-4 relative">
             <textarea 
               v-model="step.answer"
               :disabled="index < steps.length - 1 || step.aiResponse !== ''"
+              maxlength="500"
               class="w-full h-full min-h-[140px] bg-transparent border-none focus:ring-0 text-gray-700 font-bold placeholder:text-gray-300 resize-none p-2"
               placeholder="Tulis jawabanmu di sini..."
             ></textarea>
             
+            <!-- Character Counter -->
+            <div v-if="index === steps.length - 1 && !step.aiResponse" class="absolute bottom-20 right-8 text-[10px] font-black tracking-widest text-[#003366] opacity-30">
+              <span :class="{ 'text-red-500 opacity-100': step.answer.length >= 450 }">
+                {{ step.answer.length }}
+              </span>
+              / 500
+            </div>
+            
             <button 
               v-if="index === steps.length - 1 && !step.aiResponse && !step.isLoading"
               @click="submitAnswer(index)"
-              class="btn-primary w-full py-3 rounded-2xl shadow-lg hover:shadow-irish-green/20"
+              :disabled="step.answer.length === 0"
+              class="btn-primary w-full py-3 rounded-2xl shadow-lg hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Kirim Jawaban
             </button>
