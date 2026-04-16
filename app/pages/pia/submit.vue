@@ -9,21 +9,32 @@ interface Step {
   isLoading: boolean
 }
 
+// 10-step guiding questions based on the new template
+const QUESTION_SEQUENCE = [
+  'Kamu punya ide apa untuk Pegadaian?', // Start (Opening 1)
+  'Siapa yang akan kamu bantu?', // Opening 2
+  'Siapa target pengguna spesifikmu? Jelaskan karakteristik dan kebutuhan mereka yang belum terpenuhi saat ini.', // Template 1
+  'Apa kesulitan terbesar pengguna saat ini? Mengapa masalah ini sangat mendesak untuk diselesaikan sekarang?', // Template 2
+  'Identifikasi potensi risiko operasional bagi nasabah. Bagaimana langkah mitigasi dan sistem komplain yang kamu siapkan?', // Template 3
+  'Apa keunggulan utama solusimu dibanding kompetitor? Sebutkan aspek unik perusahaan yang ada di inovasi ini.', // Template 4
+  'Jelaskan alur penggunaan solusi ini dari sisi nasabah. Berapa estimasi waktu proses dan apa bukti prosesnya selesai?', // Template 5
+  'Unit kerja mana yang perlu dilibatkan? Sebutkan tiga langkah awal yang akan kamu ambil untuk memulai proyek ini.', // Template 6
+  'Apa target kuantitatif dan kualitatif dalam 6 bulan pertama? Bagaimana cara kamu mengukur keberhasilannya?', // Template 7
+  'Rangkum dalam satu kalimat penutup: Mengapa inovasi ini sangat layak untuk segera diimplementasikan?' // Template 8 (Final)
+]
+
 const steps = ref<Step[]>([
   { 
-    question: 'Kamu punya ide apa untuk Pegadaian?', 
+    question: QUESTION_SEQUENCE[0], 
     answer: '', 
     aiResponse: '', 
     isLoading: false 
   }
 ])
 
-const canProceedToNext = computed(() => {
-  const lastStep = steps.value[steps.value.length - 1]
-  return lastStep.answer.trim() !== '' && lastStep.aiResponse !== '' && !lastStep.isLoading
+const isFinished = computed(() => {
+  return steps.value.length === QUESTION_SEQUENCE.length && steps.value[steps.value.length - 1].aiResponse !== ''
 })
-
-const currentStepIndex = computed(() => steps.value.length - 1)
 
 const submitAnswer = async (index: number) => {
   const step = steps.value[index]
@@ -32,8 +43,6 @@ const submitAnswer = async (index: number) => {
   step.isLoading = true
   
   try {
-    // 1. Get AI Interaction
-    // We pass the whole conversation to the evaluator
     const conversation = steps.value.flatMap(s => [
       { role: 'assistant', content: s.question },
       { role: 'user', content: s.answer }
@@ -46,7 +55,7 @@ const submitAnswer = async (index: number) => {
     
     step.aiResponse = (res as any).content
 
-    // 2. Save to Supabase (Optional/Background)
+    // Save progress to Supabase
     try {
       if (user.value) {
         await supabase.from('innovation_steps').insert({
@@ -58,21 +67,13 @@ const submitAnswer = async (index: number) => {
         })
       }
     } catch (dbError) {
-      console.error('Database save failed:', dbError)
+      console.error('Database save error:', dbError)
     }
 
-    // 3. Prepare Next Question
-    if (index === 0) {
+    // Add next question if available
+    if (index < QUESTION_SEQUENCE.length - 1) {
       steps.value.push({
-        question: 'Siapa yang akan kamu bantu?',
-        answer: '',
-        aiResponse: '',
-        isLoading: false
-      })
-    } else {
-      // Logic for 3rd question and beyond (Implicit DFV)
-      steps.value.push({
-        question: 'Bagaimana ide ini akan memberdayakan target yang kamu sebutkan dan mengapa ini penting bagi Pegadaian?',
+        question: QUESTION_SEQUENCE[index + 1],
         answer: '',
         aiResponse: '',
         isLoading: false
@@ -80,7 +81,7 @@ const submitAnswer = async (index: number) => {
     }
 
   } catch (error) {
-    step.aiResponse = 'Maaf, terjadi gangguan koneksi. Harap coba beberapa saat lagi.'
+    step.aiResponse = 'Maaf, terjadi gangguan server. Harap coba lagi.'
   } finally {
     step.isLoading = false
   }
@@ -88,12 +89,12 @@ const submitAnswer = async (index: number) => {
 </script>
 
 <template>
-  <div class="pt-28 pb-20 bg-[#F9FAFB] min-h-screen">
+  <div class="pt-28 pb-32 bg-[#F9FAFB] min-h-screen">
     <div class="container mx-auto px-6 max-w-7xl">
       <!-- Header -->
       <div class="mb-12 text-center">
-        <h1 class="text-4xl font-black text-[#003366] mb-4">Mulai Perjalanan Inovasimu</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto">Kami akan membimbingmu langkah demi langkah untuk menyempurnakan ide hebatmu.</p>
+        <h1 class="text-4xl font-black text-[#003366] mb-4">Innovation Ideation Builder</h1>
+        <p class="text-gray-500 max-w-2xl mx-auto">Selesaikan 10 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
       </div>
 
       <!-- Column Labels -->
@@ -105,7 +106,7 @@ const submitAnswer = async (index: number) => {
 
       <!-- Interaction Area -->
       <div class="space-y-8">
-        <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch animate-fade-in">
           
           <!-- Left: Question Card -->
           <div class="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm flex items-center justify-center text-center">
@@ -124,7 +125,6 @@ const submitAnswer = async (index: number) => {
               placeholder="Tulis jawabanmu di sini..."
             ></textarea>
             
-            <!-- Character Counter -->
             <div v-if="index === steps.length - 1 && !step.aiResponse" class="absolute bottom-20 right-8 text-[10px] font-black tracking-widest text-[#003366] opacity-30">
               <span :class="{ 'text-red-500 opacity-100': step.answer.length >= 450 }">
                 {{ step.answer.length }}
@@ -135,7 +135,7 @@ const submitAnswer = async (index: number) => {
             <button 
               v-if="index === steps.length - 1 && !step.aiResponse && !step.isLoading"
               @click="submitAnswer(index)"
-              :disabled="step.answer.length === 0"
+              :disabled="step.answer.trim().length === 0"
               class="btn-primary w-full py-3 rounded-2xl shadow-lg hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Kirim Jawaban
@@ -155,7 +155,7 @@ const submitAnswer = async (index: number) => {
               <span class="text-[10px] font-bold text-irish-green uppercase tracking-widest">Agent Berpikir...</span>
             </div>
 
-            <div v-else-if="step.aiResponse" class="text-gray-600 font-medium leading-relaxed">
+            <div v-else-if="step.aiResponse" class="text-gray-600 font-semibold leading-relaxed">
               {{ step.aiResponse }}
             </div>
 
@@ -163,10 +163,18 @@ const submitAnswer = async (index: number) => {
               <span class="text-gray-300 text-sm italic">Menunggu respon kamu...</span>
             </div>
           </div>
+        </div>
 
+        <!-- Success Message -->
+        <div v-if="isFinished" class="mt-12 bg-white p-12 rounded-[48px] text-center border border-gray-100 shadow-xl animate-fade-in-up">
+           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg">✓</div>
+           <h2 class="text-3xl font-black text-[#003366] mb-4">Draft Proposal Selesai!</h2>
+           <p class="text-gray-500 mb-8 max-w-lg mx-auto">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
+           <div class="flex gap-4 justify-center">
+             <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#003366] text-white font-bold rounded-2xl">Kembali ke Portal</button>
+           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -175,4 +183,23 @@ const submitAnswer = async (index: number) => {
 .shadow-inner {
   box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
 }
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
+
