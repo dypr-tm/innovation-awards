@@ -47,7 +47,6 @@ const role = computed(() => profile.value?.role || 'guest')
         <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-bold uppercase tracking-wider">
           Admin Area
         </NuxtLink>
-        </NuxtLink>
       </div>
 
       <!-- User Profile Access Section -->
