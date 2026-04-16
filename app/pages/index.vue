@@ -47,11 +47,11 @@ const showcase = [
           Temukan potensi ide-idemu melalui platform kolaborasi inovasi terbesar di PT Pegadaian. Bergabunglah bersama ribuan inovator lainnya.
         </p>
         <div class="flex flex-col md:flex-row gap-4 justify-center">
-          <NuxtLink to="/pia" class="px-10 py-5 bg-irish-green-50 text-white rounded-2xl font-bold shadow-2xl hover:bg-irish-green-70 transition-all transform hover:-translate-y-1 text-center">
+          <NuxtLink to="/pia" class="btn-primary">
             Mulai Inovasi Sekarang
           </NuxtLink>
-          <NuxtLink to="/repository" class="px-10 py-5 bg-white text-[#003366] border-2 border-[#003366]/10 rounded-2xl font-bold hover:bg-gray-50 transition-all text-center">
-            Lihati Repositori Ide
+          <NuxtLink to="/repository" class="btn-secondary">
+            Lihat Repositori Ide
           </NuxtLink>
         </div>
       </div>

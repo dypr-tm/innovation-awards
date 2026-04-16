@@ -54,7 +54,7 @@ const timeline = [
         <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12">
           Ajang kompetisi inovasi tahunan terbesar bagi seluruh karyawan Pegadaian. Raih total hadiah puluhan juta rupiah dan wujudkan idemu.
         </p>
-        <NuxtLink to="/pia/submit" class="px-12 py-6 bg-[#003366] text-white rounded-3xl font-black text-xl shadow-2xl hover:scale-110 active:scale-95 transition-all outline outline-offset-8 outline-transparent hover:outline-[#003366]/20">
+        <NuxtLink to="/pia/submit" class="btn-primary">
           Kirim Inovasi Sekarang
         </NuxtLink>
       </div>

@@ -76,3 +76,47 @@
 .text-emerald-green-20 { color: var(--emerald-green-20); }
 .text-emerald-green-50 { color: var(--emerald-green-50); }
 .text-evergreen-70 { color: var(--evergreen-70); }
+
+/* --- Button Components --- */
+.btn-primary {
+  background-color: var(--irish-green);
+  color: white;
+  border-radius: 1rem; /* 16px */
+  font-weight: 700;
+  padding: 1.25rem 2.5rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px -5px rgba(0, 171, 78, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--irish-green-20);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -5px rgba(0, 171, 78, 0.3);
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--irish-green);
+  border: 2px solid var(--irish-green);
+  border-radius: 1rem;
+  font-weight: 700;
+  padding: 1.25rem 2.5rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background-color: var(--irish-green-70-neg);
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 0.5rem 1.5rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 9999px !important;
+}

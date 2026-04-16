@@ -47,6 +47,7 @@ const role = computed(() => profile.value?.role || 'guest')
         <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-bold uppercase tracking-wider">
           Admin Area
         </NuxtLink>
+        </NuxtLink>
       </div>
 
       <!-- User Profile -->
@@ -87,7 +88,7 @@ const role = computed(() => profile.value?.role || 'guest')
             </div>
           </Transition>
         </div>
-        <NuxtLink v-else-if="!user" to="/login" class="bg-[#003366] text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg shadow-blue-900/20">
+        <NuxtLink v-else-if="!user" to="/login" class="btn-primary btn-sm">
           Login
         </NuxtLink>
       </div>

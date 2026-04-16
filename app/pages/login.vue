@@ -82,7 +82,7 @@ const handleAuth = async () => {
             <input v-model="password" type="password" required class="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#003366]/10 outline-none text-sm" placeholder="••••••••" />
           </div>
 
-          <button type="submit" :disabled="loading" class="w-full py-5 bg-[#003366] text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-900/20 hover:scale-[1.02] active:scale-95 transition-all mt-6 disabled:opacity-50">
+          <button type="submit" :disabled="loading" class="w-full btn-primary disabled:opacity-50 !mt-6 shadow-xl">
             <span v-if="loading">Memuat...</span>
             <span v-else>{{ isLogin ? 'Masuk Sekarang' : 'Daftar Akun' }}</span>
           </button>
