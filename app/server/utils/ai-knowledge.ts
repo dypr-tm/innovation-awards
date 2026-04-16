@@ -15,6 +15,6 @@ KRITERIA EVALUASI (Skala 1-100):
 
 GAYA BAHASA:
 - Gunakan bahasa Indonesia yang profesional namun tetap antusias.
-- Sapa pengguna dengan "Rekan Inovator" atau "Insan Pegadaian".
-- Berikan saran perbaikan yang konkret jika ide masih kurang matang.
+- Sapa pengguna dengan "Insan Pegadaian".
+- Berikan saran perbaikan yang konstruktif dan solutif jika ide masih kurang matang.
 `;

@@ -1,0 +1,78 @@
+:root {
+  /* --- Passion Green --- */
+  --passion-green-70-neg: #F1F8EC;
+  --passion-green-50-neg: #C6E5B4;
+  --passion-green-20-neg: #95CF72;
+  --passion-green: #72BF44;
+  --passion-green-20: #5B9836;
+  --passion-green-50: #447228;
+  --passion-green-70: #2D4C1B;
+
+  /* --- Irish Green --- */
+  --irish-green-70-neg: #E6F6EA;
+  --irish-green-50-neg: #99DCAB;
+  --irish-green-20-neg: #40BD63;
+  --irish-green: #00AB4E;
+  --irish-green-20: #00883E;
+  --irish-green-50: #00662E;
+  --irish-green-70: #00441F;
+
+  /* --- Emerald Green / Evergreen --- */
+  --emerald-green-70-neg: #E6EDEC;
+  --emerald-green-50-neg: #99B7B3;
+  --emerald-green-20-neg: #407972;
+  --emerald-green: #004D43;
+  --emerald-green-20: #003D35;
+  --emerald-green-50: #002E28;
+  --evergreen-70: #001E1A;
+}
+
+/* Background Utilities */
+.bg-passion-green-70-neg { background-color: var(--passion-green-70-neg); }
+.bg-passion-green-50-neg { background-color: var(--passion-green-50-neg); }
+.bg-passion-green-20-neg { background-color: var(--passion-green-20-neg); }
+.bg-passion-green { background-color: var(--passion-green); }
+.bg-passion-green-20 { background-color: var(--passion-green-20); }
+.bg-passion-green-50 { background-color: var(--passion-green-50); }
+.bg-passion-green-70 { background-color: var(--passion-green-70); }
+
+.bg-irish-green-70-neg { background-color: var(--irish-green-70-neg); }
+.bg-irish-green-50-neg { background-color: var(--irish-green-50-neg); }
+.bg-irish-green-20-neg { background-color: var(--irish-green-20-neg); }
+.bg-irish-green { background-color: var(--irish-green); }
+.bg-irish-green-20 { background-color: var(--irish-green-20); }
+.bg-irish-green-50 { background-color: var(--irish-green-50); }
+.bg-irish-green-70 { background-color: var(--irish-green-70); }
+
+.bg-emerald-green-70-neg { background-color: var(--emerald-green-70-neg); }
+.bg-emerald-green-50-neg { background-color: var(--emerald-green-50-neg); }
+.bg-emerald-green-20-neg { background-color: var(--emerald-green-20-neg); }
+.bg-emerald-green { background-color: var(--emerald-green); }
+.bg-emerald-green-20 { background-color: var(--emerald-green-20); }
+.bg-emerald-green-50 { background-color: var(--emerald-green-50); }
+.bg-evergreen-70 { background-color: var(--evergreen-70); }
+
+/* Text Utilities */
+.text-passion-green-70-neg { color: var(--passion-green-70-neg); }
+.text-passion-green-50-neg { color: var(--passion-green-50-neg); }
+.text-passion-green-20-neg { color: var(--passion-green-20-neg); }
+.text-passion-green { color: var(--passion-green); }
+.text-passion-green-20 { color: var(--passion-green-20); }
+.text-passion-green-50 { color: var(--passion-green-50); }
+.text-passion-green-70 { color: var(--passion-green-70); }
+
+.text-irish-green-70-neg { color: var(--irish-green-70-neg); }
+.text-irish-green-50-neg { color: var(--irish-green-50-neg); }
+.text-irish-green-20-neg { color: var(--irish-green-20-neg); }
+.text-irish-green { color: var(--irish-green); }
+.text-irish-green-20 { color: var(--irish-green-20); }
+.text-irish-green-50 { color: var(--irish-green-50); }
+.text-irish-green-70 { color: var(--irish-green-70); }
+
+.text-emerald-green-70-neg { color: var(--emerald-green-70-neg); }
+.text-emerald-green-50-neg { color: var(--emerald-green-50-neg); }
+.text-emerald-green-20-neg { color: var(--emerald-green-20-neg); }
+.text-emerald-green { color: var(--emerald-green); }
+.text-emerald-green-20 { color: var(--emerald-green-20); }
+.text-emerald-green-50 { color: var(--emerald-green-50); }
+.text-evergreen-70 { color: var(--evergreen-70); }

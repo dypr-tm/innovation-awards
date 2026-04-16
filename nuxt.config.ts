@@ -7,7 +7,10 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxt/icon'
   ],
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/design-tokens.css',
+    '~/assets/css/main.css'
+  ],
   app: {
     head: {
       title: 'Pegadaian Innovation Center',
