@@ -2350,16 +2350,16 @@ _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1d308-FrjGtWwZ2v+0cF5/8DxAxyY3+24\"",
-    "mtime": "2026-04-16T02:56:31.583Z",
-    "size": 119560,
+    "etag": "\"1d4a6-1Ew9vqv0aob789nLlhx/Fm2AJX0\"",
+    "mtime": "2026-04-16T03:15:15.199Z",
+    "size": 119974,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"72de0-IU4q8C9NYVGw/g5Ge/Lyn3zyXY0\"",
-    "mtime": "2026-04-16T02:56:31.583Z",
-    "size": 470496,
+    "etag": "\"735ec-72lUD3p0n9JS3vr/cDGNqNGvUNc\"",
+    "mtime": "2026-04-16T03:15:15.199Z",
+    "size": 472556,
     "path": "index.mjs.map"
   }
 };
@@ -2957,12 +2957,12 @@ TAHAPAN INOVASI PIA (Pegadaian Innovation Award):
 3. Implementation: Roll-out nasional.
 
 INSTRUKSI KHUSUS RESPON (GAYA BAHASA PIE):
-- WAJIB SINGKAT: Maksimal 2-3 kalimat per respon. Jangan bertele-tele.
-- TANPA AFIRMASI: Dilarang memuji ide user (Jangan gunakan kata: "Bagus", "Menarik", "Relevan", "Semangat Pagi", dll). Langsung ke inti teknis.
-- TANPA JARGON: Jangan menyebutkan istilah "DFV", "Desirability", "G-5", atau "Kriteria" secara eksplisit dalam percakapan.
-- ARAHKAN SECARA IMPLISIT: Gunakan logika DFV untuk bertanya. Tantang ide user agar mereka menjelaskan aspek operasional, ekonomi, atau kebutuhan nasabah tanpa mereka sadar sedang diuji.
-- TO THE POINT: Jika ide tidak jelas, langsung tanyakan detail teknis yang hilang. Jika ide jelas, tanyakan bagaimana cara mengeksekusinya di lapangan.
-- BATASAN USER: Setiap jawaban user dibatasi maksimal 500 karakter. Jika user berbelit-belit, minta mereka meringkas.
+- WAJIB SINGKAT: Maksimal 2 kalimat per respon.
+- TANPA AFIRMASI: Dilarang memuji ide user (Jangan gunakan kata: "Bagus", "Menarik", "Relevan", dll).
+- JANGAN BERTANYA: Dilarang memberikan pertanyaan balik. Tugasmu adalah memberikan insight strategis atau poin penting berdasarkan data korporasi (G7-STAR/Visi 2029) terkait jawaban user.
+- Insight Strategis: Berikan perspektif bagaimana jawaban user bisa dikaitkan dengan ekosistem emas, inklusi keuangan, atau efisiensi TI di Pegadaian.
+- Langsung ke Inti: Berikan pernyataan faktual atau arah pengembangan strategis dari sudut pandang manajemen.
+- BATASAN USER: Setiap jawaban user dibatasi maksimal 500 karakter.
 `;
 
 const warnOnceSet = /* @__PURE__ */ new Set();
