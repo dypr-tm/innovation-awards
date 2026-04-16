@@ -13,7 +13,10 @@ export default defineEventHandler(async (event) => {
     body: JSON.stringify({
       model: 'deepseek-chat',
       messages: [
-        { role: 'system', content: PEGADAIAN_KNOWLEDGE },
+        { 
+          role: 'system', 
+          content: `${PEGADAIAN_KNOWLEDGE}\n\nIMPORTANT: Berikan respon dalam bentuk teks biasa (plain text) saja. JANGAN gunakan tanda baca markdown seperti ###, **, list dash, atau bold. Pastikan respon sangat bersih dan profesional.`
+        },
         ...body.messages
       ],
       stream: false
