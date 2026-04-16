@@ -2,15 +2,16 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const user = useSupabaseUser()
   const client = useSupabaseClient()
   
-  // Public routes
-  if (to.path === '/' || to.path === '/login') return
+  // 1. Define Public Routes (Accessible by Everyone including Guests)
+  const publicRoutes = ['/', '/pia', '/about', '/login']
+  if (publicRoutes.includes(to.path)) return
 
-  // If not logged in, only allow home
+  // 2. Auth Check: If not logged in and trying to access private route, redirect to login
   if (!user.value) {
     return navigateTo('/login')
   }
 
-  // Fetch user role from profile
+  // 3. Role Retrieval from Supabase Profiles
   const { data: profile } = await client
     .from('profiles')
     .select('role')
@@ -19,29 +20,37 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   const role = profile?.role || 'guest'
 
-  // Admin specific rule for /pia/submit
-  if (to.path === '/pia/submit' && role === 'admin') {
-    // We'll handle the toast in the component, but redirect for safety
-    return navigateTo('/pia?error=type_not_allowed')
-  }
-
-  // Superadmin can access everything
+  // 4. Role Hierarchy & Permission Mapping
+  // Superadmin: God mode
   if (role === 'superadmin') return
 
-  // Role-based restrictions
-  const restrictions: Record<string, string[]> = {
-    '/pia/submit': ['peserta', 'penilai', 'superadmin'],
-    '/repository': ['peserta', 'penilai', 'superadmin'],
-    '/innovations': ['peserta', 'penilai', 'superadmin'],
-    '/admin': ['admin', 'superadmin']
+  // Admin: Access all EXCEPT User Management (conceptual)
+  if (role === 'admin') {
+    // Specifically block /pia/submit as requested earlier (Type not allowed)
+    if (to.path === '/pia/submit') {
+      return navigateTo('/pia?error=type_not_allowed')
+    }
+    // Admin can access everything else
+    return
   }
 
-  const restrictedPaths = Object.keys(restrictions)
-  const matchedPath = restrictedPaths.find(p => to.path.startsWith(p))
+  // Peserta: Limited to the list below
+  if (role === 'peserta') {
+    const allowedPesertaRoutes = [
+      '/', '/pia', '/pia/submit', '/about', 
+      '/user-settings', '/idea-repository', '/innovations'
+    ]
+    // Check if path is in allowed list or starts with it (for nested pages)
+    const isAllowed = allowedPesertaRoutes.some(route => to.path.startsWith(route))
+    if (!isAllowed) {
+      return navigateTo('/')
+    }
+    return
+  }
 
-  if (matchedPath) {
-    const allowedRoles = restrictions[matchedPath]
-    if (!allowedRoles.includes(role)) {
+  // Guest (Logged in but no specific role): Fallback to home
+  if (role === 'guest') {
+    if (!publicRoutes.includes(to.path)) {
       return navigateTo('/')
     }
   }

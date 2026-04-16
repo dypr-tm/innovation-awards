@@ -2,18 +2,24 @@
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const isMenuOpen = ref(false)
+const profile = ref<any>(null)
+
+// Fetch profile to get role
+watchEffect(async () => {
+  if (user.value) {
+    const { data } = await supabase.from('profiles').select('*').eq('id', user.value.id).single()
+    profile.value = data
+  } else {
+    profile.value = null
+  }
+})
 
 const handleLogout = async () => {
   await supabase.auth.signOut()
   navigateTo('/login')
 }
 
-// Mock extra user data
-const userData = {
-  name: 'Pratama Yuda',
-  nik: 'P93280',
-  unit: 'Divisi Innovation Center'
-}
+const role = computed(() => profile.value?.role || 'guest')
 </script>
 
 <template>
@@ -28,17 +34,27 @@ const userData = {
       <div class="hidden md:flex gap-8 items-center text-sm font-semibold text-[#003366]">
         <NuxtLink to="/" class="hover:text-[#D4AF37] transition-colors">Beranda</NuxtLink>
         <NuxtLink to="/pia" class="hover:text-[#D4AF37] transition-colors">PIA</NuxtLink>
-        <NuxtLink to="/repository" class="hover:text-[#D4AF37] transition-colors">Idea Repository</NuxtLink>
-        <NuxtLink to="/innovations" class="hover:text-[#D4AF37] transition-colors">Innovations</NuxtLink>
+        
+        <!-- Role Restricted Menus -->
+        <template v-if="role !== 'guest'">
+          <NuxtLink to="/idea-repository" class="hover:text-[#D4AF37] transition-colors">Idea Repository</NuxtLink>
+          <NuxtLink to="/innovations" class="hover:text-[#D4AF37] transition-colors">Innovations</NuxtLink>
+        </template>
+        
         <NuxtLink to="/about" class="hover:text-[#D4AF37] transition-colors">About Us</NuxtLink>
+        
+        <!-- Admin/Superadmin specific -->
+        <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-bold uppercase tracking-wider">
+          Admin Area
+        </NuxtLink>
       </div>
 
       <!-- User Profile -->
       <div class="flex items-center gap-4 relative">
-        <div v-if="user" class="relative">
+        <div v-if="user && profile" class="relative">
           <button @click="isMenuOpen = !isMenuOpen" class="flex items-center gap-2 hover:bg-gray-50 p-2 rounded-xl transition-all">
             <div class="w-8 h-8 rounded-full bg-[#003366] text-white flex items-center justify-center text-xs font-bold">
-              {{ userData.name.charAt(0) }}
+              {{ profile.full_name?.charAt(0) || 'U' }}
             </div>
             <Icon name="heroicons:chevron-down" class="w-4 h-4 text-gray-400 transition-transform" :class="{ 'rotate-180': isMenuOpen }" />
           </button>
@@ -54,16 +70,16 @@ const userData = {
           >
             <div v-if="isMenuOpen" class="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border p-4 z-[100]">
               <div class="mb-4 pb-4 border-b">
-                <div class="font-bold text-[#003366]">{{ userData.name }}</div>
-                <div class="text-xs text-gray-500 mt-1">NIK: {{ userData.nik }}</div>
-                <div class="text-xs text-gray-500">{{ userData.unit }}</div>
+                <div class="font-bold text-[#003366]">{{ profile.full_name }}</div>
+                <div class="text-[10px] bg-blue-50 text-[#003366] px-2 py-0.5 rounded-full inline-block mt-1 font-bold uppercase tracking-wider">{{ role }}</div>
+                <div class="text-xs text-gray-500 mt-2">{{ profile.email }}</div>
               </div>
               <div class="flex flex-col gap-2">
-                <NuxtLink to="/settings" class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-sm text-gray-700">
+                <NuxtLink to="/user-settings" @click="isMenuOpen = false" class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-sm text-gray-700">
                   <Icon name="heroicons:cog-6-tooth" class="w-4 h-4" />
                   Pengaturan User
                 </NuxtLink>
-                <button @click="handleLogout" class="flex items-center gap-2 p-2 hover:bg-red-50 rounded-lg text-sm text-red-600 w-full text-left">
+                <button @click="handleLogout" class="flex items-center gap-2 p-2 hover:bg-red-50 rounded-lg text-sm text-red-600 w-full text-left font-semibold">
                   <Icon name="heroicons:arrow-left-on-rectangle" class="w-4 h-4" />
                   Logout
                 </button>
@@ -71,7 +87,7 @@ const userData = {
             </div>
           </Transition>
         </div>
-        <NuxtLink v-else to="/login" class="bg-[#003366] text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg shadow-blue-900/20">
+        <NuxtLink v-else-if="!user" to="/login" class="bg-[#003366] text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg shadow-blue-900/20">
           Login
         </NuxtLink>
       </div>
