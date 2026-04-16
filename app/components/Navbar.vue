@@ -50,11 +50,12 @@ const role = computed(() => profile.value?.role || 'guest')
         </NuxtLink>
       </div>
 
-      <!-- User Profile -->
+      <!-- User Profile Access Section -->
       <div class="flex items-center gap-4 relative">
+        <!-- 1. State: Logged In & Profile Loaded -->
         <div v-if="user && profile" class="relative">
           <button @click="isMenuOpen = !isMenuOpen" class="flex items-center gap-2 hover:bg-gray-50 p-2 rounded-xl transition-all">
-            <div class="w-8 h-8 rounded-full bg-[#003366] text-white flex items-center justify-center text-xs font-bold">
+            <div class="w-8 h-8 rounded-full bg-irish-green text-white flex items-center justify-center text-xs font-bold shadow-sm">
               {{ profile.full_name?.charAt(0) || 'U' }}
             </div>
             <Icon name="heroicons:chevron-down" class="w-4 h-4 text-gray-400 transition-transform" :class="{ 'rotate-180': isMenuOpen }" />
@@ -73,7 +74,7 @@ const role = computed(() => profile.value?.role || 'guest')
               <div class="mb-4 pb-4 border-b">
                 <div class="font-bold text-[#003366]">{{ profile.full_name }}</div>
                 <div class="text-[10px] bg-blue-50 text-[#003366] px-2 py-0.5 rounded-full inline-block mt-1 font-bold uppercase tracking-wider">{{ role }}</div>
-                <div class="text-xs text-gray-500 mt-2">{{ profile.email }}</div>
+                <div class="text-xs text-gray-500 mt-2 truncate">{{ profile.email }}</div>
               </div>
               <div class="flex flex-col gap-2">
                 <NuxtLink to="/user-settings" @click="isMenuOpen = false" class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-sm text-gray-700">
@@ -88,7 +89,15 @@ const role = computed(() => profile.value?.role || 'guest')
             </div>
           </Transition>
         </div>
-        <NuxtLink v-else-if="!user" to="/login" class="btn-primary btn-sm">
+
+        <!-- 2. State: Logged In but Profile Loading -->
+        <div v-else-if="user && !profile" class="flex items-center animate-pulse gap-2">
+          <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+          <div class="h-4 w-12 bg-gray-100 rounded"></div>
+        </div>
+
+        <!-- 3. State: Not Logged In -->
+        <NuxtLink v-else to="/login" class="btn-primary btn-sm">
           Login
         </NuxtLink>
       </div>
