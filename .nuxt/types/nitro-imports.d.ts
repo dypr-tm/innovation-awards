@@ -1,6 +1,7 @@
 declare global {
   const H3Error: typeof import('../../node_modules/h3').H3Error
   const H3Event: typeof import('../../node_modules/h3').H3Event
+  const PEGADAIAN_KNOWLEDGE: typeof import('../../app/server/utils/ai-knowledge').PEGADAIAN_KNOWLEDGE
   const __buildAssetsURL: typeof import('../../node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
   const __publicAssetsURL: typeof import('../../node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
   const appendCorsHeaders: typeof import('../../node_modules/h3').appendCorsHeaders
@@ -145,5 +146,6 @@ export { getRouteRules } from 'nitropack/runtime/internal/route-rules';
 export { useEvent } from 'nitropack/runtime/internal/context';
 export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
-export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from '/Users/poj/innovation-awards/testing-project/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
-export { defineAppConfig } from '/Users/poj/innovation-awards/testing-project/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from '/Users/poj/antigravity/pegadaian-innovation-center/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
+export { defineAppConfig } from '/Users/poj/antigravity/pegadaian-innovation-center/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { PEGADAIAN_KNOWLEDGE } from '/Users/poj/antigravity/pegadaian-innovation-center/app/server/utils/ai-knowledge';
