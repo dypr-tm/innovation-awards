@@ -51,11 +51,11 @@ const role = computed(() => profile.value?.role || 'guest')
 
       <!-- User Profile Access Section -->
       <div class="flex items-center gap-4 relative">
-        <!-- 1. State: Logged In & Profile Loaded -->
-        <div v-if="user && profile" class="relative">
+        <!-- State: Logged In (Fallback to user email if profile not yet loaded) -->
+        <div v-if="user" class="relative">
           <button @click="isMenuOpen = !isMenuOpen" class="flex items-center gap-2 hover:bg-gray-50 p-2 rounded-xl transition-all">
             <div class="w-8 h-8 rounded-full bg-irish-green text-white flex items-center justify-center text-xs font-bold shadow-sm">
-              {{ profile.full_name?.charAt(0) || 'U' }}
+              {{ profile?.full_name?.charAt(0) || user.email?.charAt(0).toUpperCase() || 'U' }}
             </div>
             <Icon name="heroicons:chevron-down" class="w-4 h-4 text-gray-400 transition-transform" :class="{ 'rotate-180': isMenuOpen }" />
           </button>
@@ -71,9 +71,9 @@ const role = computed(() => profile.value?.role || 'guest')
           >
             <div v-if="isMenuOpen" class="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border p-4 z-[100]">
               <div class="mb-4 pb-4 border-b">
-                <div class="font-bold text-[#003366]">{{ profile.full_name }}</div>
+                <div class="font-bold text-[#003366] truncate">{{ profile?.full_name || 'Insan Pegadaian' }}</div>
                 <div class="text-[10px] bg-blue-50 text-[#003366] px-2 py-0.5 rounded-full inline-block mt-1 font-bold uppercase tracking-wider">{{ role }}</div>
-                <div class="text-xs text-gray-500 mt-2 truncate">{{ profile.email }}</div>
+                <div class="text-xs text-gray-500 mt-2 truncate">{{ user.email }}</div>
               </div>
               <div class="flex flex-col gap-2">
                 <NuxtLink to="/user-settings" @click="isMenuOpen = false" class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-sm text-gray-700">
@@ -89,13 +89,7 @@ const role = computed(() => profile.value?.role || 'guest')
           </Transition>
         </div>
 
-        <!-- 2. State: Logged In but Profile Loading -->
-        <div v-else-if="user && !profile" class="flex items-center animate-pulse gap-2">
-          <div class="w-8 h-8 rounded-full bg-gray-200"></div>
-          <div class="h-4 w-12 bg-gray-100 rounded"></div>
-        </div>
-
-        <!-- 3. State: Not Logged In -->
+        <!-- State: Not Logged In -->
         <NuxtLink v-else to="/login" class="btn-primary btn-sm">
           Login
         </NuxtLink>
