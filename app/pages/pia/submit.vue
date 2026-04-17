@@ -55,6 +55,49 @@ const submitAnswer = async (index: number) => {
   step.isLoading = true
   
   try {
+    // --- SMART CACHING LOGIC ---
+    // Check if we already have a response for this exact Q&A in the global database to save cost
+    try {
+      const { data: cachedData, error: cacheError } = await supabase
+        .from('innovation_steps')
+        .select('ai_response')
+        .eq('question', step.question)
+        .eq('user_answer', step.answer.trim())
+        .limit(1)
+        .maybeSingle()
+
+      if (cachedData && cachedData.ai_response) {
+        step.aiResponse = cachedData.ai_response
+        
+        // Log the reused step for the current user
+        if (user.value) {
+           await supabase.from('innovation_steps').insert({
+            user_id: user.value.id,
+            question: step.question,
+            user_answer: step.answer,
+            ai_response: step.aiResponse,
+            step_number: index + 1,
+            is_reused: true // Flag for analytics/tracking
+          })
+        }
+        
+        // Add next question and exit
+        if (index < QUESTION_SEQUENCE.length - 1) {
+          steps.value.push({
+            question: QUESTION_SEQUENCE[index + 1],
+            answer: '',
+            aiResponse: '',
+            isLoading: false
+          })
+        }
+        step.isLoading = false
+        return
+      }
+    } catch (err) {
+      console.warn('Cache lookup skipped due to database error:', err)
+    }
+    // --- END CACHING LOGIC ---
+
     const conversation = steps.value.flatMap(s => [
       { role: 'assistant', content: s.question },
       { role: 'user', content: s.answer }
@@ -67,7 +110,7 @@ const submitAnswer = async (index: number) => {
     
     step.aiResponse = (res as any).content
 
-    // Save progress to Supabase
+    // Save new progress to Supabase
     try {
       if (user.value) {
         await supabase.from('innovation_steps').insert({
