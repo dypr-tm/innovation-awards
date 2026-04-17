@@ -94,33 +94,33 @@ const submitAnswer = async (index: number) => {
 </script>
 
 <template>
-  <div class="pt-28 pb-32 bg-[#F9FAFB] min-h-screen">
+  <div class="pt-28 pb-32 bg-[#F9FAFB] min-h-screen font-nunito">
     <div class="container mx-auto px-6 max-w-7xl">
       <!-- Header -->
       <div class="mb-12 text-center">
         <h1 class="text-4xl font-black text-[#003366] mb-4">Innovation Ideation Builder</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto">Selesaikan 10 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
+        <p class="text-gray-500 max-w-2xl mx-auto font-bold">Selesaikan 9 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
       </div>
 
       <!-- Column Labels -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 px-4">
-        <div class="text-center font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Pertanyaan</div>
-        <div class="text-center font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Jawaban Inovator</div>
-        <div class="text-center font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Respon Agent</div>
+        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Pertanyaan</div>
+        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Jawaban Inovator</div>
+        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Respon Agent</div>
       </div>
 
       <!-- Interaction Area -->
       <div class="space-y-8">
         <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in">
           
-          <!-- Left: Question Card (Hug Content with 16px Padding) -->
-          <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-center text-center">
-            <p class="text-gray-400 font-medium text-lg italic leading-relaxed">
+          <!-- Left: Question Card (Hug Content with 16px Padding, Left Aligned) -->
+          <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex items-start text-left">
+            <p class="text-gray-500 font-bold text-[16px] leading-relaxed">
               {{ step.question }}
             </p>
           </div>
 
-          <!-- Middle: User Input/Answer Card (Hug Content with 16px Padding) -->
+          <!-- Middle: User Input/Answer Card -->
           <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex flex-col gap-4 relative">
             <textarea 
               v-model="step.answer"
@@ -144,15 +144,15 @@ const submitAnswer = async (index: number) => {
                 v-if="!step.isLoading"
                 @click="submitAnswer(index)"
                 :disabled="step.answer.trim().length === 0"
-                class="btn-primary px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="btn-primary px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed font-black"
               >
                 Kirim
               </button>
             </div>
           </div>
 
-          <!-- Right: AI Response Card (Hug Content with 16px Padding) -->
-          <div class="p-4 rounded-[24px] flex flex-col justify-center transition-all duration-500" 
+          <!-- Right: AI Response Card -->
+          <div class="p-4 rounded-[24px] flex flex-col justify-start transition-all duration-500" 
                :class="step.aiResponse ? 'bg-[#D1D5DB] shadow-inner' : 'bg-gray-50 border-2 border-dashed border-gray-200'">
             
             <div v-if="step.isLoading" class="flex flex-col items-center gap-3">
@@ -164,21 +164,21 @@ const submitAnswer = async (index: number) => {
               <span class="text-[10px] font-bold text-irish-green uppercase tracking-widest">Agent Berpikir...</span>
             </div>
 
-            <div v-else-if="step.aiResponse" class="text-gray-600 font-semibold leading-relaxed whitespace-pre-wrap">
+            <div v-else-if="step.aiResponse" class="text-gray-700 font-bold leading-relaxed whitespace-pre-wrap">
               {{ step.aiResponse }}
             </div>
 
-            <div v-else class="text-center font-bold">
-              <span class="text-gray-300 text-sm italic">Menunggu respon kamu...</span>
+            <div v-else class="text-left font-black opacity-30">
+              <span class="text-gray-400 text-xs italic">Menunggu respon...</span>
             </div>
           </div>
         </div>
 
         <!-- Success Message -->
         <div v-if="isFinished" class="mt-12 bg-white p-12 rounded-[48px] text-center border border-gray-100 shadow-xl animate-fade-in-up">
-           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg">✓</div>
+           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg font-nunito">✓</div>
            <h2 class="text-3xl font-black text-[#003366] mb-4">Draft Proposal Selesai!</h2>
-           <p class="text-gray-500 mb-8 max-w-lg mx-auto">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
+           <p class="text-gray-500 mb-8 max-w-lg mx-auto font-bold">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
            <div class="flex gap-4 justify-center">
              <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#003366] text-white font-bold rounded-2xl">Kembali ke Portal</button>
            </div>
@@ -189,6 +189,12 @@ const submitAnswer = async (index: number) => {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap');
+
+.font-nunito {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
 .shadow-inner {
   box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
 }
@@ -211,5 +217,6 @@ const submitAnswer = async (index: number) => {
   to { opacity: 1; transform: translateY(0); }
 }
 </style>
+
 
 
