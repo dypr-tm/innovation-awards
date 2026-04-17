@@ -36,6 +36,12 @@ const isFinished = computed(() => {
   return steps.value.length === QUESTION_SEQUENCE.length && steps.value[steps.value.length - 1].aiResponse !== ''
 })
 
+const autoResize = (event: Event) => {
+  const el = event.target as HTMLTextAreaElement
+  el.style.height = 'auto'
+  el.style.height = el.scrollHeight + 'px'
+}
+
 const submitAnswer = async (index: number) => {
   const step = steps.value[index]
   if (!step.answer) return
@@ -106,44 +112,48 @@ const submitAnswer = async (index: number) => {
 
       <!-- Interaction Area -->
       <div class="space-y-8">
-        <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch animate-fade-in">
+        <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in">
           
-          <!-- Left: Question Card -->
-          <div class="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm flex items-center justify-center text-center">
+          <!-- Left: Question Card (Hug Content with 16px Padding) -->
+          <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-center text-center">
             <p class="text-gray-400 font-medium text-lg italic leading-relaxed">
               {{ step.question }}
             </p>
           </div>
 
-          <!-- Middle: User Input/Answer Card -->
-          <div class="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm flex flex-col gap-4 relative">
+          <!-- Middle: User Input/Answer Card (Hug Content with 16px Padding) -->
+          <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex flex-col gap-4 relative">
             <textarea 
               v-model="step.answer"
               :disabled="index < steps.length - 1 || step.aiResponse !== ''"
-              maxlength="500"
-              class="w-full h-full min-h-[140px] bg-transparent border-none focus:ring-0 text-gray-700 font-bold placeholder:text-gray-300 resize-none p-2"
+              maxlength="1000"
+              @input="autoResize"
+              rows="1"
+              class="w-full bg-transparent border-none focus:ring-0 text-gray-700 font-bold placeholder:text-gray-300 resize-none overflow-hidden"
               placeholder="Tulis jawabanmu di sini..."
             ></textarea>
             
-            <div v-if="index === steps.length - 1 && !step.aiResponse" class="absolute bottom-20 right-8 text-[10px] font-black tracking-widest text-[#003366] opacity-30">
-              <span :class="{ 'text-red-500 opacity-100': step.answer.length >= 450 }">
-                {{ step.answer.length }}
-              </span>
-              / 500
+            <div v-if="index === steps.length - 1 && !step.aiResponse" class="flex justify-between items-center mt-2">
+              <div class="text-[10px] font-black tracking-widest text-[#003366] opacity-30">
+                <span :class="{ 'text-red-500 opacity-100': step.answer.length >= 900 }">
+                  {{ step.answer.length }}
+                </span>
+                / 1000
+              </div>
+              
+              <button 
+                v-if="!step.isLoading"
+                @click="submitAnswer(index)"
+                :disabled="step.answer.trim().length === 0"
+                class="btn-primary px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Kirim
+              </button>
             </div>
-            
-            <button 
-              v-if="index === steps.length - 1 && !step.aiResponse && !step.isLoading"
-              @click="submitAnswer(index)"
-              :disabled="step.answer.trim().length === 0"
-              class="btn-primary w-full py-3 rounded-2xl shadow-lg hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Kirim Jawaban
-            </button>
           </div>
 
-          <!-- Right: AI Response Card -->
-          <div class="p-6 rounded-[32px] flex flex-col justify-center transition-all duration-500" 
+          <!-- Right: AI Response Card (Hug Content with 16px Padding) -->
+          <div class="p-4 rounded-[24px] flex flex-col justify-center transition-all duration-500" 
                :class="step.aiResponse ? 'bg-[#D1D5DB] shadow-inner' : 'bg-gray-50 border-2 border-dashed border-gray-200'">
             
             <div v-if="step.isLoading" class="flex flex-col items-center gap-3">
@@ -155,11 +165,11 @@ const submitAnswer = async (index: number) => {
               <span class="text-[10px] font-bold text-irish-green uppercase tracking-widest">Agent Berpikir...</span>
             </div>
 
-            <div v-else-if="step.aiResponse" class="text-gray-600 font-semibold leading-relaxed">
+            <div v-else-if="step.aiResponse" class="text-gray-600 font-semibold leading-relaxed whitespace-pre-wrap">
               {{ step.aiResponse }}
             </div>
 
-            <div v-else class="text-center">
+            <div v-else class="text-center font-bold">
               <span class="text-gray-300 text-sm italic">Menunggu respon kamu...</span>
             </div>
           </div>
@@ -202,4 +212,5 @@ const submitAnswer = async (index: number) => {
   to { opacity: 1; transform: translateY(0); }
 }
 </style>
+
 
