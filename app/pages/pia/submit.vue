@@ -9,18 +9,17 @@ interface Step {
   isLoading: boolean
 }
 
-// 10-step guiding questions based on the new template
+// 9-step guiding questions starting with a custom greeting
 const QUESTION_SEQUENCE = [
-  'Kamu punya ide apa untuk Pegadaian?', // Start (Opening 1)
-  'Siapa yang akan kamu bantu?', // Opening 2
-  'Siapa target pengguna spesifikmu? Jelaskan karakteristik dan kebutuhan mereka yang belum terpenuhi saat ini.', // Template 1
-  'Apa kesulitan terbesar pengguna saat ini? Mengapa masalah ini sangat mendesak untuk diselesaikan sekarang?', // Template 2
-  'Identifikasi potensi risiko operasional bagi nasabah. Bagaimana langkah mitigasi dan sistem komplain yang kamu siapkan?', // Template 3
-  'Apa keunggulan utama solusimu dibanding kompetitor? Sebutkan aspek unik perusahaan yang ada di inovasi ini.', // Template 4
-  'Jelaskan alur penggunaan solusi ini dari sisi nasabah. Berapa estimasi waktu proses dan apa bukti prosesnya selesai?', // Template 5
-  'Unit kerja mana yang perlu dilibatkan? Sebutkan tiga langkah awal yang akan kamu ambil untuk memulai proyek ini.', // Template 6
-  'Apa target kuantitatif dan kualitatif dalam 6 bulan pertama? Bagaimana cara kamu mengukur keberhasilannya?', // Template 7
-  'Rangkum dalam satu kalimat penutup: Mengapa inovasi ini sangat layak untuk segera diimplementasikan?' // Template 8 (Final)
+  'Semangat Pagi Insan Pegadaian! Inovasi atau ide strategis apa yang ingin Anda ajukan untuk memperkuat lini bisnis kita hari ini?', // Q1: Opening
+  'Siapa target pengguna utama inovasi ini? Jelaskan satu segmen spesifik beserta karakteristik dan kebutuhan mereka yang belum terpenuhi.', // Q2: Profil Target
+  'Jelaskan secara konkret kesulitan yang dialami target pengguna saat ini. Mengapa permasalahan ini mendesak untuk diselesaikan dalam waktu dekat?', // Q3: Masalah & Urgensi
+  'Identifikasi risiko teknis/operasional bagi nasabah. Bagaimana langkah mitigasi dan mekanisme penanganan keluhan yang Anda siapkan?', // Q4: Risiko & Keamanan
+  'Jelaskan solusi Anda secara ringkas. Apa keunggulan utamanya dibanding kompetitor dan aspek apa yang mencerminkan kapabilitas unik Pegadaian?', // Q5: Nilai & Diferensiasi
+  'Uraikan tahapan penggunaan solusi dari sisi nasabah. Berapa estimasi waktu yang dibutuhkan dan apa konfirmasi output yang akan mereka terima?', // Q6: Alur Pengalaman
+  'Unit kerja mana yang perlu dilibatkan? Sebutkan ketergantungan pihak eksternal jika ada, serta tiga langkah awal eksekusi proyek Anda.', // Q7: Sumber Daya
+  'Sebutkan target kuantitatif dan kualitatif dalam 6 bulan pertama. Metode pengukuran apa yang akan digunakan untuk memantau keberhasilannya?', // Q8: Indikator Keberhasilan
+  'Terakhir, rangkum dalam satu kalimat penutup: Mengapa inovasi ini sangat layak untuk dikembangkan dan segera diimplementasikan?' // Q9: Kesimpulan Eksekutif
 ]
 
 const steps = ref<Step[]>([
