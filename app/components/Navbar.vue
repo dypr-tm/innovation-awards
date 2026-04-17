@@ -31,20 +31,20 @@ const role = computed(() => profile.value?.role || 'guest')
       </NuxtLink>
 
       <!-- Menus -->
-      <div class="hidden md:flex gap-8 items-center text-sm font-semibold text-[#003366]">
-        <NuxtLink to="/" class="hover:text-[#D4AF37] transition-colors">Beranda</NuxtLink>
-        <NuxtLink to="/pia" class="hover:text-[#D4AF37] transition-colors">PIA</NuxtLink>
+      <div class="hidden md:flex gap-8 items-center text-sm font-semibold text-[#00441F]">
+        <NuxtLink to="/" class="hover:text-crimson-yellow transition-colors">Beranda</NuxtLink>
+        <NuxtLink to="/pia" class="hover:text-crimson-yellow transition-colors">PIA</NuxtLink>
         
         <!-- Role Restricted Menus -->
         <template v-if="role !== 'guest'">
-          <NuxtLink to="/idea-repository" class="hover:text-[#D4AF37] transition-colors">Idea Repository</NuxtLink>
-          <NuxtLink to="/innovations" class="hover:text-[#D4AF37] transition-colors">Innovations</NuxtLink>
+          <NuxtLink to="/idea-repository" class="hover:text-crimson-yellow transition-colors">Idea Repository</NuxtLink>
+          <NuxtLink to="/innovations" class="hover:text-crimson-yellow transition-colors">Innovations</NuxtLink>
         </template>
         
-        <NuxtLink to="/about" class="hover:text-[#D4AF37] transition-colors">About Us</NuxtLink>
+        <NuxtLink to="/about" class="hover:text-crimson-yellow transition-colors">About Us</NuxtLink>
         
         <!-- Admin/Superadmin specific -->
-        <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-bold uppercase tracking-wider">
+        <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-irish-green-70-neg text-irish-green rounded-lg text-xs font-bold uppercase tracking-wider">
           Admin Area
         </NuxtLink>
       </div>
@@ -71,8 +71,8 @@ const role = computed(() => profile.value?.role || 'guest')
           >
             <div v-if="isMenuOpen" class="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border p-4 z-[100]">
               <div class="mb-4 pb-4 border-b">
-                <div class="font-bold text-[#003366] truncate">{{ profile?.full_name || 'Insan Pegadaian' }}</div>
-                <div class="text-[10px] bg-blue-50 text-[#003366] px-2 py-0.5 rounded-full inline-block mt-1 font-bold uppercase tracking-wider">{{ role }}</div>
+                <div class="font-bold text-[#00441F] truncate">{{ profile?.full_name || 'Insan Pegadaian' }}</div>
+                <div class="text-[10px] bg-irish-green-70-neg text-irish-green px-2 py-0.5 rounded-full inline-block mt-1 font-bold uppercase tracking-wider">{{ role }}</div>
                 <div class="text-xs text-gray-500 mt-2 truncate">{{ user.email }}</div>
               </div>
               <div class="flex flex-col gap-2">

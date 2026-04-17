@@ -206,15 +206,15 @@ const downloadProposalPDF = () => {
     <div class="container mx-auto px-6 max-w-7xl">
       <!-- Header -->
       <div class="mb-12 text-center">
-        <h1 class="text-4xl font-black text-[#003366] mb-4">Innovation Ideation Builder</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto font-bold">Selesaikan 9 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
+        <h1 class="text-4xl font-black text-[#00441F] mb-4">Innovation Ideation Builder</h1>
+        <p class="text-gray-500 max-w-2xl mx-auto font-bold underline decoration-crimson-yellow decoration-4 underline-offset-8">Selesaikan 9 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
       </div>
 
       <!-- Column Labels -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 px-4">
-        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Pertanyaan</div>
-        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Jawaban Inovator</div>
-        <div class="text-left font-black text-[#003366] text-xl uppercase tracking-widest opacity-80">Respon Agent</div>
+        <div class="text-left font-black text-[#00662E] text-xl uppercase tracking-widest opacity-80">Pertanyaan</div>
+        <div class="text-left font-black text-[#00662E] text-xl uppercase tracking-widest opacity-80">Jawaban Inovator</div>
+        <div class="text-left font-black text-[#00662E] text-xl uppercase tracking-widest opacity-80">Respon Agent</div>
       </div>
 
       <!-- Interaction Area -->
@@ -241,7 +241,7 @@ const downloadProposalPDF = () => {
             ></textarea>
             
             <div v-if="index === steps.length - 1 && !step.aiResponse" class="flex justify-between items-center mt-2">
-              <div class="text-[10px] font-black tracking-widest text-[#003366] opacity-30">
+              <div class="text-[10px] font-black tracking-widest text-[#00441F] opacity-30">
                 <span :class="{ 'text-red-500 opacity-100': step.answer.length >= 900 }">
                   {{ step.answer.length }}
                 </span>
@@ -252,7 +252,7 @@ const downloadProposalPDF = () => {
                 v-if="!step.isLoading"
                 @click="submitAnswer(index)"
                 :disabled="step.answer.trim().length === 0"
-                class="btn-primary px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-irish-green/20 disabled:opacity-50 disabled:cursor-not-allowed font-black"
+                class="bg-crimson-yellow hover:bg-crimson-yellow-hover text-[#00441F] px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-crimson-yellow/20 disabled:opacity-50 disabled:cursor-not-allowed font-black transition-all"
               >
                 Kirim
               </button>
@@ -284,12 +284,12 @@ const downloadProposalPDF = () => {
 
         <!-- Success Message -->
         <div v-if="isFinished" class="mt-12 bg-white p-12 rounded-[48px] text-center border border-gray-100 shadow-xl animate-fade-in-up">
-           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg font-nunito">✓</div>
-           <h2 class="text-3xl font-black text-[#003366] mb-4">Draft Proposal Selesai!</h2>
+           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg font-nunito border-4 border-crimson-yellow">✓</div>
+           <h2 class="text-3xl font-black text-[#00441F] mb-4">Draft Proposal Selesai!</h2>
            <p class="text-gray-500 mb-8 max-w-lg mx-auto font-bold">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
            <div class="flex gap-4 justify-center">
-             <button @click="downloadProposalPDF" class="px-8 py-3 bg-[#E5E7EB] text-[#003366] font-bold rounded-2xl hover:bg-gray-200 transition-colors">Unduh Proposal (PDF)</button>
-             <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#003366] text-white font-bold rounded-2xl hover:bg-[#002244] transition-colors">Kembali ke Portal</button>
+             <button @click="downloadProposalPDF" class="px-8 py-3 bg-crimson-yellow text-[#00441F] font-bold rounded-2xl hover:bg-crimson-yellow-hover transition-colors shadow-lg">Unduh Proposal (PDF)</button>
+             <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#00441F] text-white font-bold rounded-2xl hover:bg-[#00220F] transition-colors">Kembali ke Portal</button>
            </div>
         </div>
       </div>
@@ -302,6 +302,10 @@ const downloadProposalPDF = () => {
 
 .font-nunito {
   font-family: 'Nunito Sans', sans-serif;
+}
+
+.decoration-crimson-yellow {
+  text-decoration-color: var(--crimson-yellow);
 }
 
 .shadow-inner {

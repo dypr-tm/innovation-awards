@@ -17,17 +17,15 @@
   --irish-green-50: #00662E;
   --irish-green-70: #00441F;
 
-  /* --- Emerald Green / Evergreen --- */
-  --emerald-green-70-neg: #E6EDEC;
-  --emerald-green-50-neg: #99B7B3;
-  --emerald-green-20-neg: #407972;
-  --emerald-green: #004D43;
-  --emerald-green-20: #003D35;
-  --emerald-green-50: #002E28;
-  --evergreen-70: #001E1A;
+  /* --- Crimson Yellow --- */
+  --crimson-yellow: #FEBE10;
+  --crimson-yellow-hover: #E5AB0E;
+  --crimson-yellow-light: #FFF8E6;
 }
 
 /* Background Utilities */
+.bg-crimson-yellow { background-color: var(--crimson-yellow); }
+.bg-crimson-yellow-light { background-color: var(--crimson-yellow-light); }
 .bg-passion-green-70-neg { background-color: var(--passion-green-70-neg); }
 .bg-passion-green-50-neg { background-color: var(--passion-green-50-neg); }
 .bg-passion-green-20-neg { background-color: var(--passion-green-20-neg); }
