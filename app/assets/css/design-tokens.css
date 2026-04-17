@@ -17,15 +17,15 @@
   --irish-green-50: #00662E;
   --irish-green-70: #00441F;
 
-  /* --- Crimson Yellow --- */
-  --crimson-yellow: #FEBE10;
-  --crimson-yellow-hover: #E5AB0E;
-  --crimson-yellow-light: #FFF8E6;
+  /* --- Butter Yellow --- */
+  --butter-yellow: #FEBE10;
+  --butter-yellow-hover: #E5AB0E;
+  --butter-yellow-light: #FFF8E6;
 }
 
 /* Background Utilities */
-.bg-crimson-yellow { background-color: var(--crimson-yellow); }
-.bg-crimson-yellow-light { background-color: var(--crimson-yellow-light); }
+.bg-butter-yellow { background-color: var(--butter-yellow); }
+.bg-butter-yellow-light { background-color: var(--butter-yellow-light); }
 .bg-passion-green-70-neg { background-color: var(--passion-green-70-neg); }
 .bg-passion-green-50-neg { background-color: var(--passion-green-50-neg); }
 .bg-passion-green-20-neg { background-color: var(--passion-green-20-neg); }

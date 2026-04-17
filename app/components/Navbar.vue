@@ -32,16 +32,16 @@ const role = computed(() => profile.value?.role || 'guest')
 
       <!-- Menus -->
       <div class="hidden md:flex gap-8 items-center text-sm font-semibold text-[#00441F]">
-        <NuxtLink to="/" class="hover:text-crimson-yellow transition-colors">Beranda</NuxtLink>
-        <NuxtLink to="/pia" class="hover:text-crimson-yellow transition-colors">PIA</NuxtLink>
+        <NuxtLink to="/" class="hover:text-butter-yellow transition-colors">Beranda</NuxtLink>
+        <NuxtLink to="/pia" class="hover:text-butter-yellow transition-colors">PIA</NuxtLink>
         
         <!-- Role Restricted Menus -->
         <template v-if="role !== 'guest'">
-          <NuxtLink to="/idea-repository" class="hover:text-crimson-yellow transition-colors">Idea Repository</NuxtLink>
-          <NuxtLink to="/innovations" class="hover:text-crimson-yellow transition-colors">Innovations</NuxtLink>
+          <NuxtLink to="/idea-repository" class="hover:text-butter-yellow transition-colors">Idea Repository</NuxtLink>
+          <NuxtLink to="/innovations" class="hover:text-butter-yellow transition-colors">Innovations</NuxtLink>
         </template>
         
-        <NuxtLink to="/about" class="hover:text-crimson-yellow transition-colors">About Us</NuxtLink>
+        <NuxtLink to="/about" class="hover:text-butter-yellow transition-colors">About Us</NuxtLink>
         
         <!-- Admin/Superadmin specific -->
         <NuxtLink v-if="role === 'admin' || role === 'superadmin'" to="/admin" class="px-3 py-1 bg-irish-green-70-neg text-irish-green rounded-lg text-xs font-bold uppercase tracking-wider">

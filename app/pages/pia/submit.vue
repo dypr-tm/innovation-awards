@@ -207,7 +207,7 @@ const downloadProposalPDF = () => {
       <!-- Header -->
       <div class="mb-12 text-center">
         <h1 class="text-4xl font-black text-[#00441F] mb-4">Innovation Ideation Builder</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto font-bold underline decoration-crimson-yellow decoration-4 underline-offset-8">Selesaikan 9 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
+        <p class="text-gray-500 max-w-2xl mx-auto font-bold underline decoration-butter-yellow decoration-4 underline-offset-8">Selesaikan 9 langkah pemandu berikut untuk memvalidasi ide inovasimu secara profesional.</p>
       </div>
 
       <!-- Column Labels -->
@@ -252,7 +252,7 @@ const downloadProposalPDF = () => {
                 v-if="!step.isLoading"
                 @click="submitAnswer(index)"
                 :disabled="step.answer.trim().length === 0"
-                class="bg-crimson-yellow hover:bg-crimson-yellow-hover text-[#00441F] px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-crimson-yellow/20 disabled:opacity-50 disabled:cursor-not-allowed font-black transition-all"
+                class="bg-butter-yellow hover:bg-butter-yellow-hover text-[#00441F] px-6 py-2 rounded-xl text-sm shadow-md hover:shadow-butter-yellow/20 disabled:opacity-50 disabled:cursor-not-allowed font-black transition-all"
               >
                 Kirim
               </button>
@@ -284,11 +284,11 @@ const downloadProposalPDF = () => {
 
         <!-- Success Message -->
         <div v-if="isFinished" class="mt-12 bg-white p-12 rounded-[48px] text-center border border-gray-100 shadow-xl animate-fade-in-up">
-           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg font-nunito border-4 border-crimson-yellow">✓</div>
+           <div class="w-20 h-20 bg-irish-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl shadow-lg font-nunito border-4 border-butter-yellow">✓</div>
            <h2 class="text-3xl font-black text-[#00441F] mb-4">Draft Proposal Selesai!</h2>
            <p class="text-gray-500 mb-8 max-w-lg mx-auto font-bold">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
            <div class="flex gap-4 justify-center">
-             <button @click="downloadProposalPDF" class="px-8 py-3 bg-crimson-yellow text-[#00441F] font-bold rounded-2xl hover:bg-crimson-yellow-hover transition-colors shadow-lg">Unduh Proposal (PDF)</button>
+             <button @click="downloadProposalPDF" class="px-8 py-3 bg-butter-yellow text-[#00441F] font-bold rounded-2xl hover:bg-butter-yellow-hover transition-colors shadow-lg">Unduh Proposal (PDF)</button>
              <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#00441F] text-white font-bold rounded-2xl hover:bg-[#00220F] transition-colors">Kembali ke Portal</button>
            </div>
         </div>
@@ -304,8 +304,8 @@ const downloadProposalPDF = () => {
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.decoration-crimson-yellow {
-  text-decoration-color: var(--crimson-yellow);
+.decoration-butter-yellow {
+  text-decoration-color: var(--butter-yellow);
 }
 
 .shadow-inner {
