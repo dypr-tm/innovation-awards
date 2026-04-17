@@ -2,6 +2,13 @@
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 
+// Load jsPDF from CDN for instant PDF generation
+useHead({
+  script: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js' }
+  ]
+})
+
 interface Step {
   question: string
   answer: string
@@ -91,6 +98,64 @@ const submitAnswer = async (index: number) => {
     step.isLoading = false
   }
 }
+
+const downloadProposalPDF = () => {
+  // @ts-ignore
+  const { jsPDF } = window.jspdf
+  const doc = new jsPDF()
+  
+  // Header
+  doc.setFont('helvetica', 'bold')
+  doc.setFontSize(18)
+  doc.setTextColor(0, 51, 102) // Pegadaian Blue
+  doc.text('DRAFT PROPOSAL INOVASI', 105, 20, { align: 'center' })
+  
+  doc.setFontSize(10)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(100)
+  doc.text(`Generated on: ${new Date().toLocaleString()}`, 105, 28, { align: 'center' })
+  
+  doc.line(20, 35, 190, 35)
+  
+  let yPos = 45
+  const margin = 20
+  const pageWidth = 210
+  const maxWidth = pageWidth - (margin * 2)
+
+  steps.value.forEach((s, i) => {
+    // Check page overflow
+    if (yPos > 270) {
+      doc.addPage()
+      yPos = 20
+    }
+
+    // Question
+    doc.setFont('helvetica', 'bold')
+    doc.setFontSize(11)
+    doc.setTextColor(0, 51, 102)
+    const qLines = doc.splitTextToSize(`${i + 1}. ${s.question}`, maxWidth)
+    doc.text(qLines, margin, yPos)
+    yPos += (qLines.length * 5) + 2
+
+    // Answer
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(10)
+    doc.setTextColor(50)
+    const aLines = doc.splitTextToSize(`Jawaban: ${s.answer}`, maxWidth - 10)
+    doc.text(aLines, margin + 5, yPos)
+    yPos += (aLines.length * 5) + 5
+
+    // AI Insight (Optional inclusion)
+    doc.setFont('helvetica', 'italic')
+    doc.setFontSize(9)
+    doc.setTextColor(120)
+    const aiLines = doc.splitTextToSize(`Analisis Agent: ${s.aiResponse}`, maxWidth - 10)
+    doc.text(aiLines, margin + 5, yPos)
+    yPos += (aiLines.length * 5) + 10
+  })
+
+  doc.save(`Proposal_Inovasi_${new Date().getTime()}.pdf`)
+}
 </script>
 
 <template>
@@ -113,7 +178,7 @@ const submitAnswer = async (index: number) => {
       <div class="space-y-8">
         <div v-for="(step, index) in steps" :key="index" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start animate-fade-in">
           
-          <!-- Left: Question Card (Hug Content with 16px Padding, Left Aligned) -->
+          <!-- Left: Question Card -->
           <div class="bg-white p-4 rounded-[24px] border border-gray-100 shadow-sm flex items-start text-left">
             <p class="text-gray-500 font-bold text-[16px] leading-relaxed">
               {{ step.question }}
@@ -180,7 +245,8 @@ const submitAnswer = async (index: number) => {
            <h2 class="text-3xl font-black text-[#003366] mb-4">Draft Proposal Selesai!</h2>
            <p class="text-gray-500 mb-8 max-w-lg mx-auto font-bold">Selamat, ide kamu telah tervalidasi oleh sistem. Kamu bisa mengunduh ringkasan atau melanjutkan ke dashboard.</p>
            <div class="flex gap-4 justify-center">
-             <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#003366] text-white font-bold rounded-2xl">Kembali ke Portal</button>
+             <button @click="downloadProposalPDF" class="px-8 py-3 bg-[#E5E7EB] text-[#003366] font-bold rounded-2xl hover:bg-gray-200 transition-colors">Unduh Proposal (PDF)</button>
+             <button @click="navigateTo('/pia')" class="px-8 py-3 bg-[#003366] text-white font-bold rounded-2xl hover:bg-[#002244] transition-colors">Kembali ke Portal</button>
            </div>
         </div>
       </div>
@@ -217,6 +283,7 @@ const submitAnswer = async (index: number) => {
   to { opacity: 1; transform: translateY(0); }
 }
 </style>
+
 
 
 
